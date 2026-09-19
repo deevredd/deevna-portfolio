@@ -8,7 +8,7 @@ Built with Next.js (App Router), TypeScript, and Tailwind CSS v4, using the self
 - **Gen Z mode**: a toggle in the sidebar (and mobile footer) that swaps the copy across every section into a Gen Z slang variant, powered by `src/context/GenZContext.tsx` and the `normal` / `genz` pairs in `src/lib/content.ts`
 
 ## Editing your content
-Everything — bio, jobs, projects, contact info, and both copy variants — lives in `src/lib/content.ts`. Edit that one file to update the site.
+Everything — bio, jobs, projects, contact info, and both copy variants — lives in `src/lib/content.ts`. 
 
 ## Run locally
 ```bash
@@ -17,4 +17,4 @@ npm run dev
 ```
 
 ## Deploy
-Push to GitHub and import into [Vercel](https://vercel.com/new) — zero config needed.
+Pushed to GitHub and imported into [Vercel](https://vercel.com/new) — zero config needed.
