@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://deevnareddy.dev/sitemap.xml",
+    sitemap: "https://deevna-portfolio.vercel.app/sitemap.xml",
   };
 }

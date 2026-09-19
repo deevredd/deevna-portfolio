@@ -3,7 +3,7 @@ import "./globals.css";
 import { GenZProvider } from "@/context/GenZContext";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://deevnareddy.dev"),
+  metadataBase: new URL("https://deevna-portfolio.vercel.app"),
   title: "Deevna Reddy | Software Development Engineer",
   description:
     "Software Development Engineer specializing in backend systems, compliance infrastructure (50M+ Alexa users), and applied ML / RAG. IEEE ICCDS 2025 & Springer Nature published author.",
@@ -22,12 +22,12 @@ export const metadata: Metadata = {
     "IEEE",
     "Springer Nature",
   ],
-  authors: [{ name: "Deevna Reddy", url: "https://deevnareddy.dev" }],
+  authors: [{ name: "Deevna Reddy", url: "https://deevna-portfolio.vercel.app" }],
   creator: "Deevna Reddy",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://deevnareddy.dev",
+    url: "https://deevna-portfolio.vercel.app",
     siteName: "Deevna Reddy Portfolio",
     title: "Deevna Reddy | Software Development Engineer",
     description:
