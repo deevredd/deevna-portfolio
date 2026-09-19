@@ -1,0 +1,91 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#0B0614"/>
+  
+  <!-- Subtle Grid Pattern -->
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#FFFFFF" stroke-opacity="0.04" stroke-width="1"/>
+    </pattern>
+    <radialGradient id="glowPurple" cx="20%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#9333ea" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#0B0614" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowPink" cx="80%" cy="70%" r="50%">
+      <stop offset="0%" stop-color="#ec4899" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#0B0614" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#C084FC"/>
+      <stop offset="50%" stop-color="#F472B6"/>
+      <stop offset="100%" stop-color="#FB923C"/>
+    </linearGradient>
+    <linearGradient id="badgeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#A855F7"/>
+      <stop offset="100%" stop-color="#EC4899"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#glowPurple)"/>
+  <rect width="1200" height="630" fill="url(#glowPink)"/>
+
+  <!-- Border Frame -->
+  <rect x="24" y="24" width="1152" height="582" rx="28" stroke="#FFFFFF" stroke-opacity="0.12" stroke-width="2"/>
+
+  <!-- Header Section -->
+  <g transform="translate(70, 70)">
+    <!-- Avatar Icon Circle -->
+    <rect width="52" height="52" rx="26" fill="url(#badgeGrad)"/>
+    <text x="26" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" text-anchor="middle" fill="#FFFFFF">👩‍💻</text>
+    
+    <text x="68" y="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF">Deevna Reddy</text>
+    <text x="68" y="46" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="600" fill="#34D399">Software Development Engineer · Backend &amp; Applied ML</text>
+  </g>
+
+  <!-- Live Status Badge Top Right -->
+  <g transform="translate(930, 75)">
+    <rect width="190" height="40" rx="20" fill="#FFFFFF" fill-opacity="0.08" stroke="#FFFFFF" stroke-opacity="0.15" stroke-width="1"/>
+    <circle cx="24" cy="20" r="5" fill="#34D399"/>
+    <text x="38" y="25" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#FCE7F3">Interactive Portfolio</text>
+  </g>
+
+  <!-- Main Headline -->
+  <g transform="translate(70, 230)">
+    <text x="0" y="0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="54" font-weight="900" fill="#FFFFFF" letter-spacing="-1">
+      Distributed Backend Systems &amp;
+    </text>
+    <text x="0" y="66" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="54" font-weight="900" fill="url(#textGrad)" letter-spacing="-1">
+      Compliance Infrastructure
+    </text>
+    <text x="0" y="130" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="500" fill="#94A3B8">
+      Amazon Alexa DSAR (50M+ Users) · IEEE ICCDS 2025 · Springer Nature Published Author
+    </text>
+  </g>
+
+  <!-- Metrics / Key Highlights Badges Bottom -->
+  <g transform="translate(70, 480)">
+    <!-- Badge 1 -->
+    <g transform="translate(0, 0)">
+      <rect width="320" height="68" rx="18" fill="#FFFFFF" fill-opacity="0.06" stroke="#FFFFFF" stroke-opacity="0.12" stroke-width="1"/>
+      <text x="24" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24">🛡️</text>
+      <text x="64" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="bold" fill="#FFFFFF">Amazon SDE</text>
+      <text x="64" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="500" fill="#94A3B8">50M+ Alexa Users DSAR</text>
+    </g>
+
+    <!-- Badge 2 -->
+    <g transform="translate(340, 0)">
+      <rect width="340" height="68" rx="18" fill="#FFFFFF" fill-opacity="0.06" stroke="#FFFFFF" stroke-opacity="0.12" stroke-width="1"/>
+      <text x="24" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24">🏆</text>
+      <text x="64" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="bold" fill="#FFFFFF">IEEE ICCDS 2025</text>
+      <text x="64" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="500" fill="#94A3B8">First Author Multimodal Paper</text>
+    </g>
+
+    <!-- Badge 3 -->
+    <g transform="translate(700, 0)">
+      <rect width="340" height="68" rx="18" fill="#FFFFFF" fill-opacity="0.06" stroke="#FFFFFF" stroke-opacity="0.12" stroke-width="1"/>
+      <text x="24" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24">📊</text>
+      <text x="64" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="bold" fill="#FFFFFF">Springer Nature</text>
+      <text x="64" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="500" fill="#94A3B8">Autism Health Disparity Study</text>
+    </g>
+  </g>
+</svg>
