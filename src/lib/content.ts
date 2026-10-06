@@ -116,7 +116,7 @@ export type Project = {
   approach: string;
   outcome: string;
   whatIdChange: string;
-  panel: "extract" | "score" | "model";
+  panel: "extract" | "score" | "model" | "asd";
   repo?: string;
   repoLabel?: string;
 };
@@ -283,7 +283,7 @@ export const projects: Project[] = [
       "Quantified significant variance in screening markers across ethnic groups, establishing benchmarks for equitable pediatric diagnostic frameworks. Published in Springer Nature.",
     whatIdChange:
       "I would expand the longitudinal cohort data to track post intervention developmental outcomes across multiple clinical hospital networks over a multi year timeframe.",
-    panel: "model",
+    panel: "asd",
   },
 ];
 
@@ -297,5 +297,5 @@ export const contact = {
       "Always down for new challenges + collabs. Question, opportunity, or just wanna say hi, shoot your shot, I'll hit back.",
   },
   email: "deevnared@gmail.com",
-  phone: "+91 9940266618",
+  phone: "+91 99•••••••• (Available on request)",
 };

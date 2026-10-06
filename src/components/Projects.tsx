@@ -241,129 +241,249 @@ function ModelPanel({ a }: { a: (typeof accents)[0] }) {
   );
 }
 
+function ASDPanel({ a }: { a: (typeof accents)[0] }) {
+  const [selectedCohort, setSelectedCohort] = useState<string>("All Cohorts");
+  const [oddsRatioText, setOddsRatioText] = useState("Statistical Significance: p < 0.001");
+
+  const markers = [
+    { name: "Q CHAT 10 Scoring Variance", v: 88 },
+    { name: "Demographic Disparity Ratio", v: 76 },
+    { name: "Speech & Social Milestone Delay", v: 82 },
+    { name: "Pediatric Referral Age Gap", v: 71 },
+  ];
+
+  const handleSelectCohort = (cohort: string, pVal: string) => {
+    playPop();
+    setSelectedCohort(cohort);
+    setOddsRatioText(pVal);
+  };
+
+  return (
+    <>
+      <div className="flex items-center justify-between mb-3">
+        <p className="font-mono text-xs font-bold tracking-wider text-slate-200">SCREENING DISPARITY METRICS</p>
+        <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+      </div>
+      <div className="space-y-3 mb-5">
+        {markers.map((m) => (
+          <div key={m.name}>
+            <div className="flex justify-between mb-1">
+              <span className="text-xs text-slate-100 font-semibold">{m.name}</span>
+              <span className="font-mono text-xs text-slate-200 font-bold">{m.v}%</span>
+            </div>
+            <div className="h-2 rounded-full bg-surface1 overflow-hidden">
+              <div className={`h-full rounded-full ${a.bar} transition-all duration-1000`} style={{ width: `${m.v}%` }} />
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="flex items-center justify-between mb-2">
+        <p className="font-mono text-xs font-bold tracking-wider text-slate-200">DEMOGRAPHIC COHORT FILTER</p>
+        <span className="font-mono text-[11px] text-emerald-300 font-bold">{oddsRatioText}</span>
+      </div>
+      <div className="flex flex-wrap gap-2 mb-4">
+        {[
+          { name: "All Cohorts", p: "p < 0.001 / Full Cohort Benchmark" },
+          { name: "Minority Subgroups", p: "Odds Ratio: 1.84 / Delayed Evaluation" },
+          { name: "High Access Subgroups", p: "Odds Ratio: 0.92 / Early Intervention" },
+        ].map((c) => (
+          <button
+            key={c.name}
+            type="button"
+            onClick={() => handleSelectCohort(c.name, c.p)}
+            className={`rounded-full border px-3 py-1 font-mono text-xs font-semibold transition-all cursor-pointer ${
+              selectedCohort === c.name
+                ? "border-emerald-400 bg-emerald-500/20 text-white"
+                : "border-surface2 bg-mantle/90 text-slate-200 hover:border-emerald-400/50"
+            }`}
+          >
+            {c.name}
+          </button>
+        ))}
+      </div>
+      <blockquote className={`border-l-2 ${a.border} pl-3 text-xs italic text-slate-100 leading-relaxed bg-surface0/30 py-2 pr-2 rounded-r`}>
+        &ldquo;Evaluating feature importance across ethnic cohorts uncovered significant diagnostic gaps, proving that early toddler screening algorithms require calibrated demographic baselines to prevent delayed clinical referrals.&rdquo;
+      </blockquote>
+    </>
+  );
+}
+
 function Panel({ type, a }: { type: Project["panel"]; a: (typeof accents)[0] }) {
   if (type === "extract") return <ExtractPanel a={a} />;
   if (type === "score") return <ScorePanel a={a} />;
+  if (type === "asd") return <ASDPanel a={a} />;
   return <ModelPanel a={a} />;
 }
 
+function ProjectCard({ project, idx }: { project: Project; idx: number }) {
+  const { t } = useGenZ();
+  const [isExpanded, setIsExpanded] = useState(false);
+  const a = accents[idx % accents.length];
+
+  return (
+    <Reveal key={project.name} delay={idx * 120}>
+      <div
+        onMouseMove={(e) => {
+          const rect = e.currentTarget.getBoundingClientRect();
+          e.currentTarget.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+          e.currentTarget.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
+        }}
+        className={`group relative rounded-2xl border border-surface1/80 bg-mantle/70 p-6 sm:p-9 transition-all duration-300 hover:border-surface2 ${a.glow} hover:-translate-y-1`}
+      >
+        {/* Top Badge & Number */}
+        <div className="flex items-start justify-between gap-4 mb-4">
+          <span className={`rounded-full ${a.bg} border ${a.border} px-3.5 py-1 font-mono text-xs font-bold tracking-wide ${a.text}`}>
+            {project.badge}
+          </span>
+          <span className="font-mono text-xs text-slate-200 shrink-0 font-bold">0{idx + 1}</span>
+        </div>
+
+        {/* Project Title & Icon */}
+        <div className="flex items-center gap-3 mb-3">
+          <span className="text-2xl sm:text-3xl" aria-hidden>
+            {project.icon}
+          </span>
+          <h3 className="text-2xl sm:text-3xl font-bold text-white leading-tight tracking-tight">
+            {project.name}
+          </h3>
+        </div>
+
+        {/* Tagline */}
+        <p className="max-w-2xl text-white text-sm sm:text-base leading-relaxed mb-6 font-normal" style={{ color: "#ffffff" }}>
+          {t(project.tagline)}
+        </p>
+
+        {/* Stats Row */}
+        <div className="flex flex-wrap gap-3 mb-8">
+          {project.stats.map((s) => (
+            <div
+              key={s.label}
+              className="rounded-xl border border-surface2 bg-surface0/60 px-4 py-3 min-w-[120px] transition-all duration-200 hover:scale-105 hover:border-white/30 shadow-md"
+            >
+              <p className="text-xl font-bold text-white">{s.value}</p>
+              <p className="font-mono text-[11px] text-slate-200 font-bold tracking-wider mt-0.5">{s.label.toUpperCase()}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Main Grid: Interactive Panel + Breakdown */}
+        <div className="grid lg:grid-cols-2 gap-8 items-start">
+          <div className="rounded-xl border border-surface2 bg-surface0/40 p-6 shadow-inner">
+            <Panel type={project.panel} a={a} />
+          </div>
+
+          <div>
+            {/* Desktop 2x2 Grid */}
+            <div className="hidden sm:grid sm:grid-cols-2 gap-x-8 gap-y-6">
+              <div className="group/item">
+                <p className="font-mono text-xs tracking-wider text-rose-400 font-bold border-t border-rose-400/40 pt-2.5 mb-2">
+                  PROBLEM
+                </p>
+                <p className="text-sm text-white leading-relaxed font-normal" style={{ color: "#ffffff" }}>{project.problem}</p>
+              </div>
+              <div className="group/item">
+                <p className="font-mono text-xs tracking-wider text-sky-300 font-bold border-t border-sky-400/40 pt-2.5 mb-2">
+                  APPROACH
+                </p>
+                <p className="text-sm text-white leading-relaxed font-normal" style={{ color: "#ffffff" }}>{project.approach}</p>
+              </div>
+              <div className="group/item">
+                <p className="font-mono text-xs tracking-wider text-emerald-400 font-bold border-t border-emerald-400/40 pt-2.5 mb-2">
+                  OUTCOME
+                </p>
+                <p className="text-sm text-white leading-relaxed font-normal" style={{ color: "#ffffff" }}>{project.outcome}</p>
+              </div>
+              <div className="group/item">
+                <p className="font-mono text-xs tracking-wider text-amber-300 font-bold border-t border-amber-400/40 pt-2.5 mb-2">
+                  WHAT I&apos;D CHANGE
+                </p>
+                <p className="text-sm text-white leading-relaxed font-normal" style={{ color: "#ffffff" }}>{project.whatIdChange}</p>
+              </div>
+            </div>
+
+            {/* Mobile Collapsible View */}
+            <div className="sm:hidden space-y-4">
+              <div>
+                <p className="font-mono text-xs tracking-wider text-rose-400 font-bold border-t border-rose-400/40 pt-2.5 mb-1.5">
+                  PROBLEM
+                </p>
+                <p className="text-sm text-white leading-relaxed font-normal" style={{ color: "#ffffff" }}>{project.problem}</p>
+              </div>
+              <div>
+                <p className="font-mono text-xs tracking-wider text-emerald-400 font-bold border-t border-emerald-400/40 pt-2.5 mb-1.5">
+                  OUTCOME
+                </p>
+                <p className="text-sm text-white leading-relaxed font-normal" style={{ color: "#ffffff" }}>{project.outcome}</p>
+              </div>
+
+              {isExpanded && (
+                <div className="space-y-4 pt-2">
+                  <div>
+                    <p className="font-mono text-xs tracking-wider text-sky-300 font-bold border-t border-sky-400/40 pt-2.5 mb-1.5">
+                      APPROACH
+                    </p>
+                    <p className="text-sm text-white leading-relaxed font-normal" style={{ color: "#ffffff" }}>{project.approach}</p>
+                  </div>
+                  <div>
+                    <p className="font-mono text-xs tracking-wider text-amber-300 font-bold border-t border-amber-400/40 pt-2.5 mb-1.5">
+                      WHAT I&apos;D CHANGE
+                    </p>
+                    <p className="text-sm text-white leading-relaxed font-normal" style={{ color: "#ffffff" }}>{project.whatIdChange}</p>
+                  </div>
+                </div>
+              )}
+
+              <button
+                type="button"
+                onClick={() => setIsExpanded(!isExpanded)}
+                className="w-full mt-3 py-2 px-3 rounded-lg border border-surface2 bg-surface0/60 hover:bg-surface1 text-slate-200 font-mono text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+              >
+                <span>{isExpanded ? "Collapse Breakdown ▲" : "View Full Engineering Breakdown ▼"}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Tags & External Links */}
+        <div className="mt-8 pt-4 border-t border-surface1/60 flex flex-wrap items-center gap-2">
+          {project.tags.map((tag) => (
+            <span
+              key={tag}
+              className={`rounded-full border border-surface2 bg-mantle/90 px-3 py-1 font-mono text-xs font-medium ${a.text} hover:border-white/40 transition-colors`}
+            >
+              {tag}
+            </span>
+          ))}
+          {project.repo && (
+            <a
+              href={project.repo}
+              target="_blank"
+              rel="noreferrer"
+              className={`ml-auto flex items-center gap-1.5 font-mono text-xs font-semibold ${a.text} hover:underline hover:scale-105 transition-transform`}
+            >
+              {project.repoLabel || "View source"}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="h-3.5 w-3.5">
+                <path d="M7 17 17 7M7 7h10v10" />
+              </svg>
+            </a>
+          )}
+        </div>
+      </div>
+    </Reveal>
+  );
+}
+
 export default function Projects() {
-  const { t, genz } = useGenZ();
+  const { genz } = useGenZ();
   return (
     <Section id="projects" num="03" heading={genz ? "Projects (the plug)" : "Projects"}>
       <p className="max-w-xl text-white -mt-4 mb-12 text-sm sm:text-base leading-relaxed font-normal" style={{ color: "#ffffff" }}>
         Problem, approach, outcome, and what I&apos;d change. Numbers only where I can explain how they were measured.
       </p>
       <div className="space-y-20">
-        {projects.map((project, idx) => {
-          const a = accents[idx % accents.length];
-          return (
-            <Reveal key={project.name} delay={idx * 120}>
-              <div
-                onMouseMove={(e) => {
-                  const rect = e.currentTarget.getBoundingClientRect();
-                  e.currentTarget.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
-                  e.currentTarget.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
-                }}
-                className={`group relative rounded-2xl border border-surface1/80 bg-mantle/70 p-6 sm:p-9 transition-all duration-300 hover:border-surface2 ${a.glow} hover:-translate-y-1`}
-              >
-                {/* Top Badge & Number */}
-                <div className="flex items-start justify-between gap-4 mb-4">
-                  <span className={`rounded-full ${a.bg} border ${a.border} px-3.5 py-1 font-mono text-xs font-bold tracking-wide ${a.text}`}>
-                    {project.badge}
-                  </span>
-                  <span className="font-mono text-xs text-slate-200 shrink-0 font-bold">0{idx + 1}</span>
-                </div>
-
-                {/* Project Title & Icon */}
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="text-2xl sm:text-3xl" aria-hidden>
-                    {project.icon}
-                  </span>
-                  <h3 className="text-2xl sm:text-3xl font-bold text-white leading-tight tracking-tight">
-                    {project.name}
-                  </h3>
-                </div>
-
-                {/* Tagline */}
-                <p className="max-w-2xl text-white text-sm sm:text-base leading-relaxed mb-6 font-normal" style={{ color: "#ffffff" }}>
-                  {t(project.tagline)}
-                </p>
-
-                {/* Stats Row */}
-                <div className="flex flex-wrap gap-3 mb-8">
-                  {project.stats.map((s) => (
-                    <div
-                      key={s.label}
-                      className="rounded-xl border border-surface2 bg-surface0/60 px-4 py-3 min-w-[120px] transition-all duration-200 hover:scale-105 hover:border-white/30 shadow-md"
-                    >
-                      <p className="text-xl font-bold text-white">{s.value}</p>
-                      <p className="font-mono text-[11px] text-slate-200 font-bold tracking-wider mt-0.5">{s.label.toUpperCase()}</p>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Main Grid: Interactive Panel + Breakdown */}
-                <div className="grid lg:grid-cols-2 gap-8 items-start">
-                  <div className="rounded-xl border border-surface2 bg-surface0/40 p-6 shadow-inner">
-                    <Panel type={project.panel} a={a} />
-                  </div>
-                  <div className="grid sm:grid-cols-2 gap-x-8 gap-y-6">
-                    <div className="group/item">
-                      <p className="font-mono text-xs tracking-wider text-rose-400 font-bold border-t border-rose-400/40 pt-2.5 mb-2">
-                        PROBLEM
-                      </p>
-                      <p className="text-sm text-white leading-relaxed font-normal" style={{ color: "#ffffff" }}>{project.problem}</p>
-                    </div>
-                    <div className="group/item">
-                      <p className="font-mono text-xs tracking-wider text-sky-300 font-bold border-t border-sky-400/40 pt-2.5 mb-2">
-                        APPROACH
-                      </p>
-                      <p className="text-sm text-white leading-relaxed font-normal" style={{ color: "#ffffff" }}>{project.approach}</p>
-                    </div>
-                    <div className="group/item">
-                      <p className="font-mono text-xs tracking-wider text-emerald-400 font-bold border-t border-emerald-400/40 pt-2.5 mb-2">
-                        OUTCOME
-                      </p>
-                      <p className="text-sm text-white leading-relaxed font-normal" style={{ color: "#ffffff" }}>{project.outcome}</p>
-                    </div>
-                    <div className="group/item">
-                      <p className="font-mono text-xs tracking-wider text-amber-300 font-bold border-t border-amber-400/40 pt-2.5 mb-2">
-                        WHAT I&apos;D CHANGE
-                      </p>
-                      <p className="text-sm text-white leading-relaxed font-normal" style={{ color: "#ffffff" }}>{project.whatIdChange}</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Tags & External Links */}
-                <div className="mt-8 pt-4 border-t border-surface1/60 flex flex-wrap items-center gap-2">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className={`rounded-full border border-surface2 bg-mantle/90 px-3 py-1 font-mono text-xs font-medium ${a.text} hover:border-white/40 transition-colors`}
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                  {project.repo && (
-                    <a
-                      href={project.repo}
-                      target="_blank"
-                      rel="noreferrer"
-                      className={`ml-auto flex items-center gap-1.5 font-mono text-xs font-semibold ${a.text} hover:underline hover:scale-105 transition-transform`}
-                    >
-                      {project.repoLabel || "View source"}
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="h-3.5 w-3.5">
-                        <path d="M7 17 17 7M7 7h10v10" />
-                      </svg>
-                    </a>
-                  )}
-                </div>
-              </div>
-            </Reveal>
-          );
-        })}
+        {projects.map((project, idx) => (
+          <ProjectCard key={project.name} project={project} idx={idx} />
+        ))}
       </div>
     </Section>
   );

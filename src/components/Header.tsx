@@ -63,6 +63,16 @@ export default function Header() {
               </a>
             );
           })}
+          <a
+            href="/Deevna_Reddy_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-3 py-1.5 rounded-full font-semibold text-slate-300 hover:text-white hover:bg-surface1/60 transition-all flex items-center gap-1.5 ml-1 border border-transparent hover:border-surface2"
+            title="Download PDF Resume"
+          >
+            <span>Resume</span>
+            <span className="text-mauve text-[10px]">↗</span>
+          </a>
         </nav>
         <div className="flex items-center gap-3">
           <button
