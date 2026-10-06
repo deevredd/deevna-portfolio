@@ -227,71 +227,71 @@ function HeroSlide({
 
   return (
     <SlideWrapper
-      className="h-full w-full flex flex-col justify-center items-center text-center px-6"
+      className="h-full w-full flex flex-col justify-center items-center text-center px-4 py-8"
       onDoubleTap={onDoubleTap}
     >
       <div className="absolute inset-0 bg-[#0b0614]" />
-      <div className="absolute -top-24 -right-24 h-[450px] w-[450px] rounded-full bg-pink-500/30 blur-[130px] pointer-events-none" />
-      <div className="absolute -bottom-24 -left-24 h-[400px] w-[400px] rounded-full bg-purple-500/20 blur-[120px] pointer-events-none" />
+      <div className="absolute -top-20 -right-20 h-[300px] w-[300px] rounded-full bg-pink-500/25 blur-[100px] pointer-events-none" />
+      <div className="absolute -bottom-20 -left-20 h-[300px] w-[300px] rounded-full bg-purple-500/20 blur-[100px] pointer-events-none" />
       <div className="absolute inset-0 gz-noise" />
 
-      <div className="relative z-10 max-w-md w-full flex flex-col items-center">
+      <div className="relative z-10 max-w-sm w-full flex flex-col items-center">
         {/* Profile Avatar with Gradient Ring & Doodles */}
-        <div className="relative mb-4">
-          <SparkleStar className="absolute -left-7 top-2 text-3xl" />
-          <SparkleStar className="absolute -right-6 bottom-3 text-2xl" style={{ animationDelay: "1.2s" }} />
+        <div className="relative mb-3">
+          <SparkleStar className="absolute -left-5 top-1 text-2xl" />
+          <SparkleStar className="absolute -right-5 bottom-2 text-xl" style={{ animationDelay: "1.2s" }} />
 
           <button
             type="button"
             onClick={handleAvatarClick}
             title="Tap to switch avatar mood"
-            className={`relative h-36 w-36 sm:h-40 sm:w-40 rounded-full gz-gradient-ring p-[3.5px] shadow-[0_0_35px_rgba(244,114,182,0.6)] cursor-pointer active:scale-95 transition-transform ${
+            className={`relative h-24 w-24 sm:h-28 sm:w-28 rounded-full gz-gradient-ring p-[3px] shadow-[0_0_25px_rgba(244,114,182,0.5)] cursor-pointer active:scale-95 transition-transform ${
               avatarWobble ? "animate-[gz-shake_0.4s_ease]" : "hover:scale-105"
             }`}
           >
-            <div className="h-full w-full rounded-full bg-black p-[3px] flex items-center justify-center">
-              <div className="h-full w-full rounded-full bg-gradient-to-br from-pink-500/40 via-purple-600/40 to-indigo-600/40 flex items-center justify-center text-6xl select-none">
+            <div className="h-full w-full rounded-full bg-black p-[2px] flex items-center justify-center">
+              <div className="h-full w-full rounded-full bg-gradient-to-br from-pink-500/40 via-purple-600/40 to-indigo-600/40 flex items-center justify-center text-4xl sm:text-5xl select-none">
                 {avatarList[avatarIdx]}
               </div>
             </div>
           </button>
-          <span className="gz-tape absolute -top-3 -right-6 h-5 w-16 shadow-md pointer-events-none" />
-          <div className="absolute -right-8 -top-3 gz-font-hand text-2xl sm:text-3xl text-yellow-300 font-bold drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] rotate-[12deg] select-none pointer-events-none">
+          <span className="gz-tape absolute -top-2 -right-4 h-4 w-12 shadow-sm pointer-events-none" />
+          <div className="absolute -right-6 -top-2 gz-font-hand text-lg sm:text-xl text-yellow-300 font-bold drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] rotate-[12deg] select-none pointer-events-none">
             {slide.sticker}!
           </div>
         </div>
 
         {/* Username with verified badge */}
-        <div className="flex items-center gap-1.5 text-white mb-2">
-          <span className="text-base sm:text-lg font-bold lowercase tracking-wide text-white drop-shadow-sm">
+        <div className="flex items-center gap-1.5 text-white mb-1.5">
+          <span className="text-sm sm:text-base font-bold lowercase tracking-wide text-white drop-shadow-sm">
             {slide.username}
           </span>
-          <span className="inline-flex items-center justify-center h-4 w-4 rounded-full bg-cyan-400 text-black text-[10px] font-bold shadow-xs">
+          <span className="inline-flex items-center justify-center h-3.5 w-3.5 rounded-full bg-cyan-400 text-black text-[9px] font-bold shadow-xs">
             ✓
           </span>
         </div>
 
-        {/* Big Bungee Headline with highlighter */}
-        <h1 className="gz-font-display text-5xl sm:text-7xl text-white leading-none mb-3 lowercase drop-shadow-lg">
+        {/* Sleek Headline with highlighter */}
+        <h1 className="gz-font-display text-3xl sm:text-4xl text-white leading-none mb-2.5 lowercase drop-shadow-lg">
           <span className="gz-highlight">{slide.headingWord}</span>
         </h1>
 
         {/* Punchy High Contrast Bio in Frosted Glass Pill */}
-        <div className="bg-black/75 backdrop-blur-xl px-5 py-3 rounded-2xl border border-white/25 mb-3 max-w-md shadow-2xl">
-          <p className="text-white text-sm sm:text-base font-semibold gz-font-caption leading-relaxed drop-shadow-sm" style={{ color: "#ffffff" }}>
+        <div className="bg-black/75 backdrop-blur-xl px-4 py-2.5 rounded-xl border border-white/20 mb-2.5 max-w-xs sm:max-w-sm shadow-xl">
+          <p className="text-white text-xs sm:text-sm font-semibold gz-font-caption leading-relaxed drop-shadow-sm" style={{ color: "#ffffff" }}>
             {slide.bio}
           </p>
         </div>
 
         {/* Interactive Aura Counter Pill */}
-        <div className="relative mb-4">
+        <div className="relative mb-2.5">
           <button
             type="button"
             onClick={handleBoostAura}
-            className="inline-flex items-center gap-2 bg-purple-950/80 hover:bg-purple-900/90 border border-purple-400/40 px-3.5 py-1.5 rounded-full text-xs font-bold text-yellow-300 shadow-lg cursor-pointer transition hover:scale-105 active:scale-95"
+            className="inline-flex items-center gap-1.5 bg-purple-950/80 hover:bg-purple-900/90 border border-purple-400/40 px-3 py-1 rounded-full text-xs font-bold text-yellow-300 shadow-md cursor-pointer transition hover:scale-105 active:scale-95"
           >
             <span>⚡ Aura: {aura.toLocaleString()}</span>
-            <span className="text-[10px] bg-yellow-300 text-black px-1.5 py-0.5 rounded-full font-black">
+            <span className="text-[9px] bg-yellow-300 text-black px-1.5 py-0.5 rounded-full font-black">
               + TAP
             </span>
           </button>
@@ -300,7 +300,7 @@ function HeroSlide({
           {auraFloaters.map((af) => (
             <span
               key={af.id}
-              className="pointer-events-none absolute -top-5 left-1/2 -translate-x-1/2 text-sm font-black text-yellow-300 drop-shadow-[0_0_8px_rgba(253,224,71,0.9)] animate-[gz-aura-float_1.2s_ease-out_forwards] whitespace-nowrap"
+              className="pointer-events-none absolute -top-5 left-1/2 -translate-x-1/2 text-xs font-black text-yellow-300 drop-shadow-[0_0_8px_rgba(253,224,71,0.9)] animate-[gz-aura-float_1.2s_ease-out_forwards] whitespace-nowrap"
             >
               {af.text}
             </span>
@@ -308,7 +308,7 @@ function HeroSlide({
         </div>
 
         {/* Interactive Vibe tags */}
-        <div className="flex flex-wrap justify-center gap-2 max-w-sm mb-5">
+        <div className="flex flex-wrap justify-center gap-1.5 max-w-xs mb-3">
           {slide.vibeTags.map((t) => (
             <button
               key={t}
@@ -317,7 +317,7 @@ function HeroSlide({
                 e.stopPropagation();
                 playPop();
               }}
-              className="rounded-full bg-white/20 hover:bg-white/30 border border-white/30 px-3.5 py-1 text-xs text-white font-bold transition-all hover:scale-110 active:scale-95 shadow-md backdrop-blur-sm cursor-pointer"
+              className="rounded-full bg-white/15 hover:bg-white/25 border border-white/20 px-2.5 py-0.5 text-[11px] text-white font-bold transition-all hover:scale-105 active:scale-95 shadow-sm backdrop-blur-sm cursor-pointer"
             >
               {t}
             </button>
@@ -333,7 +333,7 @@ function HeroSlide({
             setFollowed((prev) => !prev);
             setFollowerCount((prev) => (prev === "240K" ? "240.1K" : "240K"));
           }}
-          className={`rounded-full font-bold px-8 py-2.5 text-sm transition-all duration-200 cursor-pointer shadow-xl ${
+          className={`rounded-full font-bold px-6 py-2 text-xs sm:text-sm transition-all duration-200 cursor-pointer shadow-lg ${
             followed
               ? "bg-neutral-800 text-white border border-white/30 shadow-white/10"
               : "bg-white text-black hover:scale-105 active:scale-95 shadow-pink-500/40"
@@ -342,9 +342,9 @@ function HeroSlide({
           {followed ? `following (${followerCount}) ✓` : `+ follow (${followerCount})`}
         </button>
 
-        <p className="mt-5 flex flex-col items-center gap-1 text-[10px] tracking-[0.25em] text-slate-100 font-mono font-bold uppercase drop-shadow-sm animate-pulse">
+        <p className="mt-2.5 flex flex-col items-center gap-0.5 text-[9px] tracking-[0.2em] text-slate-300 font-mono font-bold uppercase drop-shadow-sm">
           Double tap screen to like
-          <span className="text-xs">💖</span>
+          <span className="text-[11px]">💖</span>
         </p>
       </div>
     </SlideWrapper>
@@ -372,33 +372,33 @@ function AboutSlide({
 
   return (
     <SlideWrapper
-      className="h-full w-full flex items-center justify-center p-6 bg-gradient-to-br from-indigo-950 via-purple-950 to-fuchsia-950"
+      className="h-full w-full flex items-center justify-center p-4 sm:p-5 bg-gradient-to-br from-indigo-950 via-purple-950 to-fuchsia-950"
       onDoubleTap={onDoubleTap}
     >
       <div className="absolute inset-0 gz-noise" />
-      <div className="absolute top-28 left-1/2 -translate-x-1/2 h-[340px] w-[340px] rounded-full bg-fuchsia-500/30 blur-[110px]" />
+      <div className="absolute top-20 left-1/2 -translate-x-1/2 h-[240px] w-[240px] rounded-full bg-fuchsia-500/25 blur-[90px]" />
 
-      <div className="relative w-full max-w-md">
+      <div className="relative w-full max-w-xs sm:max-w-sm">
         {/* Visual Stack Cards Underneath for physical deck depth */}
-        <div className="absolute inset-0 gz-sticker-pink rounded-sm opacity-60 rotate-2 translate-y-2 pointer-events-none" />
-        <div className="absolute inset-0 gz-sticker-yellow rounded-sm opacity-40 -rotate-3 translate-y-4 pointer-events-none" />
+        <div className="absolute inset-0 gz-sticker-pink rounded-sm opacity-60 rotate-2 translate-y-1.5 pointer-events-none" />
+        <div className="absolute inset-0 gz-sticker-yellow rounded-sm opacity-40 -rotate-3 translate-y-3 pointer-events-none" />
 
         <GenZTiltCard
           key={animKey}
-          maxTilt={12}
+          maxTilt={10}
           onClick={nextCard}
-          className="relative text-left w-full gz-sticker-white rounded-sm p-7 sm:p-8 shadow-2xl rotate-[-1.5deg] animate-[gz-bounce-in_0.4s_ease]"
+          className="relative text-left w-full gz-sticker-white rounded-lg p-5 sm:p-6 shadow-2xl rotate-[-1.5deg] animate-[gz-bounce-in_0.4s_ease]"
         >
-          <div className="gz-tape absolute -top-3 left-6 h-5 w-18" />
-          <div className="text-5xl mb-4 leading-none select-none">{currentCard.emoji}</div>
-          <h2 className="text-2xl sm:text-3xl font-black gz-font-display mb-2 lowercase leading-tight text-neutral-900">
+          <div className="gz-tape absolute -top-2.5 left-5 h-4 w-14" />
+          <div className="text-3xl mb-2.5 leading-none select-none">{currentCard.emoji}</div>
+          <h2 className="text-xl sm:text-2xl font-black gz-font-display mb-1.5 lowercase leading-tight text-neutral-900">
             {currentCard.title}
           </h2>
-          <p className="text-neutral-900 text-sm sm:text-base leading-relaxed gz-font-caption mb-6 font-medium">
+          <p className="text-neutral-900 text-xs sm:text-sm leading-relaxed gz-font-caption mb-4 font-medium">
             {currentCard.text}
           </p>
-          <div className="flex items-center justify-between text-xs text-neutral-800 border-t border-neutral-200 pt-3">
-            <span className="uppercase tracking-wider font-bold text-pink-600 flex items-center gap-1.5">
+          <div className="flex items-center justify-between text-[11px] text-neutral-800 border-t border-neutral-200 pt-2.5">
+            <span className="uppercase tracking-wider font-bold text-pink-600 flex items-center gap-1">
               <span>Tap for next card</span>
               <span className="animate-pulse">➜</span>
             </span>
@@ -474,41 +474,41 @@ function ExperienceSlide({
       <div className="absolute inset-0 gz-noise" />
       <div className="absolute inset-0 bg-black/45" />
 
-      {/* Massive Watermark Emoji in Background */}
+      {/* Watermark Emoji in Background */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
-        <span className="text-[440px] sm:text-[540px] opacity-[0.09] leading-none animate-[gz-spin-slow_60s_linear_infinite]">
+        <span className="text-[160px] sm:text-[200px] opacity-[0.08] leading-none animate-[gz-spin-slow_60s_linear_infinite]">
           {currentEmoji}
         </span>
       </div>
 
       {/* Top Header Pill */}
-      <div className="absolute top-20 sm:top-24 left-4 right-4 z-20 flex items-center justify-between max-w-lg mx-auto">
-        <div className="inline-flex items-center gap-1.5 bg-black/80 text-white rounded-md border border-white/20 px-3 py-1 text-[11px] font-bold uppercase tracking-wider shadow-md">
+      <div className="absolute top-3 left-3 right-3 z-20 flex items-center justify-between max-w-sm mx-auto">
+        <div className="inline-flex items-center gap-1.5 bg-black/80 text-white rounded-md border border-white/20 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider shadow-md">
           <span>💼</span> Villain era · {slide.index + 1}/3
         </div>
-        <div className="bg-black/80 text-white rounded-md border border-white/20 px-3 py-1 text-[11px] font-bold tabular-nums shadow-md">
+        <div className="bg-black/80 text-white rounded-md border border-white/20 px-2.5 py-0.5 text-[10px] font-bold tabular-nums shadow-md">
           {slide.views} views
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="relative h-full flex flex-col items-center justify-center text-center px-4 pt-14 max-w-md mx-auto z-10">
-        {/* HUGE Glowing Holographic Emoticon Showcase */}
+      <div className="relative h-full flex flex-col items-center justify-center text-center px-4 pt-10 pb-16 max-w-xs sm:max-w-sm mx-auto z-10">
+        {/* Holographic Emoticon Showcase */}
         <div className="relative mb-2 flex items-center justify-center">
-          <div className="absolute -inset-4 rounded-full bg-white/15 blur-xl animate-pulse pointer-events-none" />
+          <div className="absolute -inset-3 rounded-full bg-white/15 blur-lg animate-pulse pointer-events-none" />
           
           <button
             type="button"
             onClick={handleEmojiClick}
             title="Tap to switch villain aura"
-            className={`relative h-24 w-24 sm:h-32 sm:w-32 rounded-full bg-black/70 backdrop-blur-md border-2 border-white/30 shadow-[0_0_45px_rgba(255,255,255,0.35)] flex items-center justify-center cursor-pointer transition-transform hover:scale-110 active:scale-95 ${
+            className={`relative h-20 w-20 sm:h-22 sm:w-22 rounded-full bg-black/70 backdrop-blur-md border-2 border-white/30 shadow-[0_0_35px_rgba(255,255,255,0.3)] flex items-center justify-center cursor-pointer transition-transform hover:scale-105 active:scale-95 ${
               wobble ? "animate-[gz-shake_0.4s_ease]" : ""
             }`}
           >
-            <span className="text-5xl sm:text-7xl select-none leading-none drop-shadow-[0_4px_20px_rgba(0,0,0,0.85)] filter">
+            <span className="text-4xl sm:text-5xl select-none leading-none drop-shadow-[0_4px_16px_rgba(0,0,0,0.85)] filter">
               {currentEmoji}
             </span>
-            <span className="absolute -bottom-1 bg-neutral-950 text-yellow-300 font-bold text-[9px] px-2 py-0.5 rounded-full border border-white/20 uppercase tracking-widest shadow-md">
+            <span className="absolute -bottom-1 bg-neutral-950 text-yellow-300 font-bold text-[8px] px-2 py-0.5 rounded-full border border-white/20 uppercase tracking-widest shadow-md">
               TAP VIBE
             </span>
           </button>
@@ -516,11 +516,11 @@ function ExperienceSlide({
 
         {/* Highlight Achievement Badges */}
         {slide.highlights && (
-          <div className="flex flex-wrap justify-center gap-1.5 mb-2">
+          <div className="flex flex-wrap justify-center gap-1 mb-1.5">
             {slide.highlights.map((h) => (
               <span
                 key={h}
-                className="inline-flex items-center gap-1 bg-black/80 backdrop-blur-md text-amber-300 border border-amber-400/40 text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow-sm"
+                className="inline-flex items-center gap-1 bg-black/80 backdrop-blur-md text-amber-300 border border-amber-400/40 text-[9px] font-bold px-2 py-0.5 rounded-full shadow-sm"
               >
                 <span>⚡</span>
                 <span>{h}</span>
@@ -529,19 +529,19 @@ function ExperienceSlide({
           </div>
         )}
 
-        <h2 className="text-xl sm:text-3xl font-black gz-font-display text-white drop-shadow leading-tight mb-0.5 lowercase">
+        <h2 className="text-lg sm:text-xl font-black gz-font-display text-white drop-shadow leading-tight mb-0.5 lowercase">
           {slide.role}
         </h2>
-        <p className="text-white text-xs sm:text-sm font-bold mb-2 font-mono drop-shadow-sm">
+        <p className="text-white text-xs font-bold mb-1.5 font-mono drop-shadow-sm">
           @ {slide.company} · {slide.location}
         </p>
 
         {/* Domain Specific Interactive HUD for each company */}
         {slide.id === "exp_amazon" && (
-          <div className="w-full bg-black/80 backdrop-blur-md border border-amber-500/30 rounded-xl p-2.5 mb-2 text-left shadow-lg">
-            <div className="flex items-center justify-between text-[10px] font-mono text-amber-400 mb-1.5">
+          <div className="w-full bg-black/80 backdrop-blur-md border border-amber-500/30 rounded-xl p-2 mb-1.5 text-left shadow-lg">
+            <div className="flex items-center justify-between text-[9px] font-mono text-amber-400 mb-1">
               <span className="flex items-center gap-1">
-                <span className="h-2 w-2 rounded-full bg-emerald-400 animate-ping" />
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping" />
                 ALEXA COMPLIANCE ENGINE
               </span>
               <span className="text-white font-bold">50M+ USERS</span>
@@ -551,11 +551,11 @@ function ExperienceSlide({
                 type="button"
                 onClick={handleRunAudit}
                 disabled={auditRunning}
-                className="bg-amber-500 hover:bg-amber-400 disabled:opacity-50 text-black text-[10px] font-black px-2.5 py-1 rounded-md transition active:scale-95 cursor-pointer shadow-sm"
+                className="bg-amber-500 hover:bg-amber-400 disabled:opacity-50 text-black text-[9px] font-black px-2 py-0.5 rounded transition active:scale-95 cursor-pointer shadow-sm"
               >
                 {auditRunning ? "Auditing..." : "⚡ Run Audit Test"}
               </button>
-              <span className="text-[10px] text-white font-mono truncate">
+              <span className="text-[9px] text-white font-mono truncate">
                 {auditResult || "JDK 17 Runtime: +20% Boost"}
               </span>
             </div>
@@ -563,10 +563,10 @@ function ExperienceSlide({
         )}
 
         {slide.id === "exp_agilisium" && (
-          <div className="w-full bg-black/80 backdrop-blur-md border border-purple-500/30 rounded-xl p-2.5 mb-2 text-left shadow-lg">
-            <div className="flex items-center justify-between text-[10px] font-mono text-pink-400 mb-1.5">
+          <div className="w-full bg-black/80 backdrop-blur-md border border-purple-500/30 rounded-xl p-2 mb-1.5 text-left shadow-lg">
+            <div className="flex items-center justify-between text-[9px] font-mono text-pink-400 mb-1">
               <span className="flex items-center gap-1">
-                <span className="h-2 w-2 rounded-full bg-pink-400 animate-pulse" />
+                <span className="h-1.5 w-1.5 rounded-full bg-pink-400 animate-pulse" />
                 RAG KNOWLEDGE RETRIEVAL
               </span>
               <span className="text-white font-bold">40% CUT</span>
@@ -575,29 +575,29 @@ function ExperienceSlide({
               <button
                 type="button"
                 onClick={(e) => handleRagQuery(e, "Policy Search", "40% Time Saved")}
-                className="bg-white/10 hover:bg-white/20 text-white text-[9px] font-bold px-2 py-0.5 rounded transition cursor-pointer"
+                className="bg-white/10 hover:bg-white/20 text-white text-[9px] font-bold px-1.5 py-0.5 rounded transition cursor-pointer"
               >
                 Policy Search
               </button>
               <button
                 type="button"
                 onClick={(e) => handleRagQuery(e, "Vector Query", "Found in 12ms")}
-                className="bg-white/10 hover:bg-white/20 text-white text-[9px] font-bold px-2 py-0.5 rounded transition cursor-pointer"
+                className="bg-white/10 hover:bg-white/20 text-white text-[9px] font-bold px-1.5 py-0.5 rounded transition cursor-pointer"
               >
                 Vector Query
               </button>
             </div>
-            <p className="text-[10px] text-purple-200 font-mono truncate">
+            <p className="text-[9px] text-purple-200 font-mono truncate">
               {ragQuery || "Interactive HR Query Stream Ready"}
             </p>
           </div>
         )}
 
         {slide.id === "exp_reude" && (
-          <div className="w-full bg-black/80 backdrop-blur-md border border-cyan-500/30 rounded-xl p-2.5 mb-2 text-left shadow-lg">
-            <div className="flex items-center justify-between text-[10px] font-mono text-cyan-400 mb-1.5">
+          <div className="w-full bg-black/80 backdrop-blur-md border border-cyan-500/30 rounded-xl p-2 mb-1.5 text-left shadow-lg">
+            <div className="flex items-center justify-between text-[9px] font-mono text-cyan-400 mb-1">
               <span className="flex items-center gap-1">
-                <span className="h-2 w-2 rounded-full bg-cyan-400 animate-ping" />
+                <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-ping" />
                 DRONE SPATIAL TELEMETRY
               </span>
               <span className="text-white font-bold">+20% ACC</span>
@@ -606,11 +606,11 @@ function ExperienceSlide({
               <button
                 type="button"
                 onClick={handleDroneScan}
-                className="bg-cyan-500 hover:bg-cyan-400 text-black text-[10px] font-black px-2.5 py-1 rounded-md transition active:scale-95 cursor-pointer shadow-sm"
+                className="bg-cyan-500 hover:bg-cyan-400 text-black text-[9px] font-black px-2 py-0.5 rounded transition active:scale-95 cursor-pointer shadow-sm"
               >
                 {droneScan ? "Scanning..." : "📡 Scan Point Cloud"}
               </button>
-              <span className="text-[10px] text-white font-mono truncate">
+              <span className="text-[9px] text-white font-mono truncate">
                 {droneScan ? "LiDAR Fusion: 1.2M Points" : "GPS Locked · 120m Alt"}
               </span>
             </div>
@@ -619,17 +619,17 @@ function ExperienceSlide({
 
         {/* 3D Tilt Sticker Card Description */}
         <GenZTiltCard
-          maxTilt={8}
-          className="relative max-w-md gz-sticker-white px-4 py-3 rounded-sm -rotate-[1deg] mb-2 shadow-2xl text-left"
+          maxTilt={6}
+          className="relative max-w-xs sm:max-w-sm gz-sticker-white px-3 py-2 rounded-sm -rotate-[0.5deg] mb-1.5 shadow-xl text-left"
         >
-          <div className="gz-tape absolute -top-2.5 right-6 h-4 w-14" />
-          <p className="gz-font-caption text-neutral-900 text-xs sm:text-sm leading-relaxed font-medium">
+          <div className="gz-tape absolute -top-2 right-5 h-3.5 w-12" />
+          <p className="gz-font-caption text-neutral-900 text-xs leading-relaxed font-medium">
             {slide.description}
           </p>
         </GenZTiltCard>
 
         {/* Tech tags */}
-        <div className="flex flex-wrap justify-center gap-1.5 max-w-sm mb-1.5">
+        <div className="flex flex-wrap justify-center gap-1 max-w-xs mb-1">
           {slide.tags.map((t) => (
             <button
               key={t}
@@ -638,13 +638,13 @@ function ExperienceSlide({
                 e.stopPropagation();
                 playPop();
               }}
-              className="rounded-md bg-black/70 hover:bg-black/90 border border-white/25 px-2 py-0.5 text-[10px] font-mono text-white font-medium shadow-sm transition hover:scale-105 active:scale-95 cursor-pointer"
+              className="rounded bg-black/70 hover:bg-black/90 border border-white/20 px-1.5 py-0.5 text-[9px] font-mono text-white font-medium shadow-sm transition hover:scale-105 active:scale-95 cursor-pointer"
             >
               {t}
             </button>
           ))}
         </div>
-        <p className="text-[11px] text-slate-200 font-mono font-semibold">{slide.dates}</p>
+        <p className="text-[10px] text-slate-300 font-mono font-medium">{slide.dates}</p>
       </div>
     </SlideWrapper>
   );
@@ -670,7 +670,7 @@ function SkillsSlide({
 
   return (
     <SlideWrapper
-      className="h-full w-full bg-[#0a1411] overflow-hidden flex flex-col items-center justify-center px-4 py-16"
+      className="h-full w-full bg-[#0a1411] overflow-hidden flex flex-col items-center justify-center px-4 py-8"
       onDoubleTap={onDoubleTap}
     >
       <div className="absolute inset-0 gz-noise opacity-60" />
@@ -682,39 +682,39 @@ function SkillsSlide({
         }}
       />
 
-      <div className="relative z-10 max-w-xl w-full flex flex-col items-center text-center">
+      <div className="relative z-10 max-w-xs sm:max-w-sm w-full flex flex-col items-center text-center">
         {/* Header Badges */}
-        <p className="text-emerald-400 text-xs tracking-[0.28em] font-mono font-bold uppercase mb-1 drop-shadow-sm">
+        <p className="text-emerald-400 text-[10px] tracking-[0.25em] font-mono font-bold uppercase mb-0.5 drop-shadow-sm">
           {slide.eyebrow}
         </p>
-        <h2 className="text-3xl sm:text-5xl font-black gz-font-display text-white lowercase mb-1 drop-shadow-md">
-          <span className="text-emerald-300 mr-2">
+        <h2 className="text-2xl sm:text-3xl font-black gz-font-display text-white lowercase mb-1 drop-shadow-md">
+          <span className="text-emerald-300 mr-1.5">
             {slide.title}
           </span>
           🛠️
         </h2>
-        <p className="text-slate-300 text-xs sm:text-sm font-medium gz-font-caption mb-4 drop-shadow-sm">
+        <p className="text-slate-300 text-xs font-medium gz-font-caption mb-2.5 drop-shadow-sm">
           {slide.subtitle}
         </p>
 
-        {/* Tech Savvy Developer Terminal Console */}
-        <div className="w-full bg-black/85 backdrop-blur-2xl border border-white/20 p-4 sm:p-5 rounded-2xl shadow-2xl text-left mb-4">
+        {/* Tech Developer Terminal Console */}
+        <div className="w-full bg-black/85 backdrop-blur-2xl border border-white/20 p-3 sm:p-3.5 rounded-xl shadow-2xl text-left mb-2.5">
           {/* Console Header Bar */}
-          <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-3 text-xs font-mono">
-            <div className="flex items-center gap-1.5">
-              <span className="h-2.5 w-2.5 rounded-full bg-red-500/80" />
-              <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/80" />
-              <span className="h-2.5 w-2.5 rounded-full bg-green-500/80" />
-              <span className="text-slate-400 font-bold ml-2">deevna@devstation: ~/toolkit</span>
+          <div className="flex items-center justify-between pb-2 border-b border-white/10 mb-2 text-[11px] font-mono">
+            <div className="flex items-center gap-1">
+              <span className="h-2 w-2 rounded-full bg-red-500/80" />
+              <span className="h-2 w-2 rounded-full bg-yellow-500/80" />
+              <span className="h-2 w-2 rounded-full bg-green-500/80" />
+              <span className="text-slate-400 font-bold ml-1.5">~/toolkit</span>
             </div>
-            <span className="text-emerald-400 font-bold text-[11px] flex items-center gap-1">
-              <span className="h-2 w-2 rounded-full bg-emerald-400 animate-ping" />
+            <span className="text-emerald-400 font-bold text-[10px] flex items-center gap-1">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping" />
               SYS LIVE
             </span>
           </div>
 
-          {/* Aligned 2/3 Column Tech Matrix */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 w-full">
+          {/* Aligned 2 Column Tech Matrix */}
+          <div className="grid grid-cols-2 gap-1.5 w-full">
             {slide.skills.map((s) => {
               const isPicked = highlightedSkill === s.name;
               return (
@@ -725,17 +725,17 @@ function SkillsSlide({
                     e.stopPropagation();
                     playPop();
                   }}
-                  className={`p-2.5 rounded-xl border text-left transition-all duration-200 cursor-pointer ${
+                  className={`p-2 rounded-lg border text-left transition-all duration-200 cursor-pointer ${
                     isPicked
-                      ? "bg-amber-400/20 border-amber-400 shadow-[0_0_20px_rgba(251,191,36,0.6)] scale-105 z-20 animate-[gz-shake_0.4s_ease]"
-                      : "bg-white/[0.05] hover:bg-white/[0.12] border-white/15 hover:border-emerald-400/50 hover:scale-102"
+                      ? "bg-amber-400/20 border-amber-400 shadow-[0_0_15px_rgba(251,191,36,0.6)] scale-102 z-20 animate-[gz-shake_0.4s_ease]"
+                      : "bg-white/[0.05] hover:bg-white/[0.12] border-white/15 hover:border-emerald-400/50"
                   }`}
                 >
-                  <div className="flex items-center gap-2 font-bold text-xs text-white">
-                    <span className="text-base">{s.emoji}</span>
+                  <div className="flex items-center gap-1.5 font-bold text-xs text-white">
+                    <span className="text-sm">{s.emoji}</span>
                     <span className="truncate">{s.name}</span>
                   </div>
-                  <p className="text-[10px] text-emerald-300 font-mono font-medium mt-1 truncate">
+                  <p className="text-[9px] text-emerald-300 font-mono font-medium mt-0.5 truncate">
                     {s.slangLevel}
                   </p>
                 </button>
@@ -745,17 +745,17 @@ function SkillsSlide({
         </div>
 
         {/* Action Controls Bar */}
-        <div className="flex items-center justify-between w-full max-w-xl px-1">
+        <div className="flex items-center justify-between w-full px-0.5">
           <button
             type="button"
             onClick={handlePickRandom}
-            className="inline-flex items-center gap-1.5 bg-emerald-500 hover:bg-emerald-400 text-black font-black text-xs px-4 py-2 rounded-full shadow-lg border border-black cursor-pointer hover:scale-105 active:scale-95 transition"
+            className="inline-flex items-center gap-1 bg-emerald-500 hover:bg-emerald-400 text-black font-black text-[11px] px-3 py-1.5 rounded-full shadow-md border border-black cursor-pointer hover:scale-105 active:scale-95 transition"
           >
             <span>🎲</span>
-            <span>Roll random tech stack</span>
+            <span>Roll tech stack</span>
           </button>
 
-          <div className="inline-flex items-center gap-1.5 bg-black/80 border border-white/20 text-yellow-300 px-3 py-1.5 rounded-full font-mono text-[11px] font-bold shadow-md">
+          <div className="inline-flex items-center gap-1 bg-black/80 border border-white/20 text-yellow-300 px-2.5 py-1 rounded-full font-mono text-[10px] font-bold shadow-md">
             <span>⚡</span> {slide.rating}
           </div>
         </div>
@@ -781,18 +781,18 @@ function ProjectSlide({
       <div className="absolute inset-0 bg-black/40" />
 
       {/* Top Project Indicator Pill */}
-      <div className="absolute top-20 sm:top-24 left-4 right-4 z-20 flex items-center justify-between max-w-lg mx-auto">
-        <div className="inline-flex items-center gap-1.5 bg-black/80 text-white rounded-md border border-white/20 px-3 py-1 text-[11px] font-bold uppercase tracking-wider shadow-md">
+      <div className="absolute top-3 left-3 right-3 z-20 flex items-center justify-between max-w-sm mx-auto">
+        <div className="inline-flex items-center gap-1 bg-black/80 text-white rounded-md border border-white/20 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider shadow-md">
           <span>⚡</span> Project · {slide.index + 1}/3
         </div>
-        <div className="bg-black/80 text-white rounded-md border border-white/20 px-3 py-1 text-[11px] font-bold tabular-nums shadow-md">
+        <div className="bg-black/80 text-white rounded-md border border-white/20 px-2.5 py-0.5 text-[10px] font-bold tabular-nums shadow-md">
           {slide.views} views
         </div>
       </div>
 
       {/* Center 3D Tilt Project Card */}
-      <div className="relative z-10 w-full px-4 pt-14 pb-16 sm:py-0 flex flex-col items-center justify-center">
-        <GenZTiltCard maxTilt={8}>
+      <div className="relative z-10 w-full px-2 pt-8 pb-14 max-w-xs sm:max-w-sm flex flex-col items-center justify-center">
+        <GenZTiltCard maxTilt={6}>
           <GenZReceiptCard slide={slide} />
         </GenZTiltCard>
       </div>
@@ -810,18 +810,18 @@ function ContactSlide({
 }) {
   return (
     <SlideWrapper
-      className="h-full w-full bg-gradient-to-br from-[#0c051f] via-[#1a0826] to-[#24081c] overflow-y-auto gz-scrollbar-hidden flex flex-col items-center justify-center p-4 sm:p-6 pt-16 pb-12"
+      className="h-full w-full bg-gradient-to-br from-[#0c051f] via-[#1a0826] to-[#24081c] overflow-y-auto gz-scrollbar-hidden flex flex-col items-center justify-center p-3 pt-6 pb-12"
       onDoubleTap={onDoubleTap}
     >
       <div className="absolute inset-0 gz-noise opacity-60 pointer-events-none" />
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-purple-600/20 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-10 right-10 w-72 h-72 bg-pink-600/15 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-purple-600/20 rounded-full blur-[90px] pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-60 h-60 bg-pink-600/15 rounded-full blur-[80px] pointer-events-none" />
 
-      <div className="relative z-10 max-w-md w-full flex flex-col items-center text-center my-auto">
-        <h2 className="text-3xl sm:text-5xl font-black gz-font-display text-white drop-shadow leading-tight mb-1">
+      <div className="relative z-10 max-w-xs sm:max-w-sm w-full flex flex-col items-center text-center my-auto">
+        <h2 className="text-2xl sm:text-3xl font-black gz-font-display text-white drop-shadow leading-tight mb-0.5">
           {slide.heading}
         </h2>
-        <p className="text-pink-300 font-mono text-xs sm:text-sm font-semibold mb-3 drop-shadow-sm">
+        <p className="text-pink-300 font-mono text-xs font-semibold mb-2 drop-shadow-sm">
           {slide.subheading}
         </p>
 
@@ -832,7 +832,7 @@ function ContactSlide({
   );
 }
 
-// Main Gen-Z Mode Container
+// Main Gen Z Mode Container
 export default function GenZStoryMode() {
   const { mode } = useGenZ();
   const isGenZ = mode === "genz";
@@ -908,9 +908,15 @@ export default function GenZStoryMode() {
 
   return (
     <SpotifyProvider activeTrack={activeSlide.sound}>
-      <div className="fixed inset-0 z-50 bg-black text-white overflow-hidden select-none">
-        {/* Top Right Exit Gen-Z button & Live Badge */}
-        <div className="fixed top-3 right-3 sm:top-4 sm:right-4 z-[60] flex items-center gap-2.5">
+      <div className="fixed inset-0 z-50 bg-[#07040d] text-white overflow-hidden select-none flex flex-col items-center justify-center">
+        {/* Ambient background glow on desktop */}
+        <div className="hidden md:block absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/4 left-1/4 w-[450px] h-[450px] bg-purple-600/10 rounded-full blur-[140px]" />
+          <div className="absolute bottom-1/4 right-1/4 w-[450px] h-[450px] bg-pink-600/10 rounded-full blur-[140px]" />
+        </div>
+
+        {/* Top Floating Controls */}
+        <div className="fixed top-3 right-3 sm:top-4 sm:right-6 z-[60] flex items-center gap-2">
           <LiveBadge />
           <GenZToggle compact={true} />
         </div>
@@ -918,84 +924,92 @@ export default function GenZStoryMode() {
         {/* Live Toasts sliding from left */}
         <LiveToasts />
 
-        {/* Vertical Scroll-Snap Feed */}
-        <div
-          ref={containerRef}
-          className="h-full w-full overflow-y-scroll gz-scrollbar-hidden gz-snap-y"
-        >
-          {/* Sticky Stories Bar at top */}
-          <GenZStoriesBar onSelect={scrollToSlide} activeId={activeSlide.id} />
-
-          {/* Slides */}
-          {slides.map((slide, idx) => (
-            <section
-              key={slide.id}
-              data-slide-idx={idx}
-              className="relative h-[100dvh] w-full gz-snap-start overflow-hidden flex flex-col items-center justify-center"
-            >
-              {slide.kind === "hero" && (
-                <HeroSlide slide={slide} onDoubleTap={() => handleDoubleTapSlide(slide.id)} />
-              )}
-              {slide.kind === "about" && (
-                <AboutSlide slide={slide} onDoubleTap={() => handleDoubleTapSlide(slide.id)} />
-              )}
-              {slide.kind === "experience" && (
-                <ExperienceSlide slide={slide} onDoubleTap={() => handleDoubleTapSlide(slide.id)} />
-              )}
-              {slide.kind === "skills" && (
-                <SkillsSlide slide={slide} onDoubleTap={() => handleDoubleTapSlide(slide.id)} />
-              )}
-              {slide.kind === "project" && (
-                <ProjectSlide slide={slide} onDoubleTap={() => handleDoubleTapSlide(slide.id)} />
-              )}
-              {slide.kind === "contact" && (
-                <ContactSlide slide={slide} onDoubleTap={() => handleDoubleTapSlide(slide.id)} />
-              )}
-
-              {/* TikTok Right-side Actions Rail */}
-              <GenZActionsRail
-                likes={slide.likes}
-                saves={slide.saves}
-                shares={slide.shares}
-                isLikedExternal={likedSlides[slide.id]}
-              />
-
-              {/* Bottom Caption Frosted Glass Card (hidden on contact slide so deck is completely unobstructed) */}
-              {slide.kind !== "contact" && (
-                <div className="absolute left-3 sm:left-6 bottom-4 sm:bottom-6 z-20 max-w-[290px] sm:max-w-md text-left pointer-events-auto flex flex-col gap-2.5">
-                  <div className="bg-black/80 backdrop-blur-xl border border-white/20 p-3.5 sm:p-4 rounded-2xl shadow-2xl space-y-1.5">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-white tracking-wide">@deevna_reddy</span>
-                      <span className="text-[10px] text-yellow-300 font-bold bg-yellow-300/20 px-2 py-0.5 rounded-full border border-yellow-300/30">
-                        ORIGINAL
-                      </span>
-                    </div>
-                    <p className="text-xs sm:text-sm text-white font-semibold leading-snug drop-shadow-sm" style={{ color: "#ffffff" }}>
-                      {slide.caption}
-                    </p>
-                    <p className="text-xs text-pink-300 font-bold drop-shadow-sm">
-                      {slide.hashtags.join(" ")}
-                    </p>
-                    <div className="pt-1">
-                      <GenZSoundTicker sound={slide.sound} />
-                    </div>
-                  </div>
-                </div>
-              )}
-            </section>
-          ))}
+        {/* Desktop Helper Hint */}
+        <div className="hidden lg:flex fixed bottom-4 left-6 z-40 items-center gap-2 text-[11px] font-mono text-slate-400 bg-black/60 px-3 py-1.5 rounded-full border border-white/10 backdrop-blur-md">
+          <span className="text-purple-300 font-bold">Tip:</span> Use ↑ / ↓ arrow keys to scroll stories
         </div>
 
-        {/* Bottom Slide Dot Indicators */}
-        <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-3 z-50 flex gap-1 items-center">
-          {slides.map((_, i) => (
-            <span
-              key={i}
-              className={`h-1 rounded-full transition-all duration-300 ${
-                i === activeIdx ? "w-6 bg-white" : "w-1.5 bg-white/40"
-              }`}
-            />
-          ))}
+        {/* REELS SMARTPHONE FRAME */}
+        <div className="w-full h-full md:h-[94vh] md:max-h-[850px] md:max-w-[420px] md:rounded-[36px] md:border md:border-white/20 md:shadow-[0_0_80px_rgba(0,0,0,0.9),0_0_100px_rgba(244,114,182,0.18)] relative overflow-hidden flex flex-col bg-black">
+          {/* Sticky Stories Bar at top of frame */}
+          <GenZStoriesBar onSelect={scrollToSlide} activeId={activeSlide.id} />
+
+          {/* Vertical Scroll Snap Feed */}
+          <div
+            ref={containerRef}
+            className="flex-1 w-full overflow-y-scroll gz-scrollbar-hidden gz-snap-y relative"
+          >
+            {/* Slides */}
+            {slides.map((slide, idx) => (
+              <section
+                key={slide.id}
+                data-slide-idx={idx}
+                className="relative h-full min-h-full w-full gz-snap-start overflow-hidden flex flex-col items-center justify-center"
+              >
+                {slide.kind === "hero" && (
+                  <HeroSlide slide={slide} onDoubleTap={() => handleDoubleTapSlide(slide.id)} />
+                )}
+                {slide.kind === "about" && (
+                  <AboutSlide slide={slide} onDoubleTap={() => handleDoubleTapSlide(slide.id)} />
+                )}
+                {slide.kind === "experience" && (
+                  <ExperienceSlide slide={slide} onDoubleTap={() => handleDoubleTapSlide(slide.id)} />
+                )}
+                {slide.kind === "skills" && (
+                  <SkillsSlide slide={slide} onDoubleTap={() => handleDoubleTapSlide(slide.id)} />
+                )}
+                {slide.kind === "project" && (
+                  <ProjectSlide slide={slide} onDoubleTap={() => handleDoubleTapSlide(slide.id)} />
+                )}
+                {slide.kind === "contact" && (
+                  <ContactSlide slide={slide} onDoubleTap={() => handleDoubleTapSlide(slide.id)} />
+                )}
+
+                {/* TikTok Right side Actions Rail */}
+                <GenZActionsRail
+                  likes={slide.likes}
+                  saves={slide.saves}
+                  shares={slide.shares}
+                  isLikedExternal={likedSlides[slide.id]}
+                />
+
+                {/* Bottom Caption Frosted Glass Card */}
+                {slide.kind !== "contact" && (
+                  <div className="absolute left-2.5 bottom-3 right-14 z-20 max-w-[280px] text-left pointer-events-auto flex flex-col gap-1.5">
+                    <div className="bg-black/85 backdrop-blur-xl border border-white/15 p-2.5 rounded-xl shadow-xl space-y-1">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[11px] font-bold text-white tracking-wide">@deevna_reddy</span>
+                        <span className="text-[9px] text-yellow-300 font-bold bg-yellow-300/20 px-1.5 py-0.2 rounded-full border border-yellow-300/30">
+                          ORIGINAL
+                        </span>
+                      </div>
+                      <p className="text-xs text-white font-semibold leading-tight drop-shadow-sm line-clamp-2" style={{ color: "#ffffff" }}>
+                        {slide.caption}
+                      </p>
+                      <p className="text-[10px] text-pink-300 font-bold drop-shadow-sm">
+                        {slide.hashtags.join(" ")}
+                      </p>
+                      <div className="pt-0.5">
+                        <GenZSoundTicker sound={slide.sound} />
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </section>
+            ))}
+          </div>
+
+          {/* Bottom Slide Dot Indicators */}
+          <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-2 z-50 flex gap-1 items-center">
+            {slides.map((_, i) => (
+              <span
+                key={i}
+                className={`h-1 rounded-full transition-all duration-300 ${
+                  i === activeIdx ? "w-5 bg-white" : "w-1 bg-white/40"
+                }`}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </SpotifyProvider>
