@@ -70,10 +70,10 @@ export default function GenZActionsRail({
   };
 
   return (
-    <div className="absolute right-2 sm:right-2.5 bottom-16 sm:bottom-20 z-30 flex flex-col gap-2.5 items-center text-white select-none">
+    <div className="absolute right-3 sm:right-6 bottom-28 sm:bottom-32 z-30 flex flex-col gap-4 items-center text-white select-none">
       {/* Copied Toast */}
       {copied && (
-        <div className="absolute -left-32 top-1/2 -translate-y-1/2 bg-black/90 text-white border border-white/20 text-xs px-2.5 py-1 rounded-full shadow-2xl animate-[fadeIn_0.2s_ease] whitespace-nowrap">
+        <div className="absolute -left-36 top-1/2 -translate-y-1/2 bg-black/90 text-white border border-white/20 text-xs px-3 py-1.5 rounded-full shadow-2xl animate-[fadeIn_0.2s_ease] whitespace-nowrap">
           Link copied! 📋✨
         </div>
       )}
@@ -85,13 +85,13 @@ export default function GenZActionsRail({
         className="relative flex flex-col items-center group cursor-pointer"
         aria-label="Like this post"
       >
-        <div className="relative p-2 rounded-full bg-black/50 backdrop-blur-md border border-white/20 group-active:scale-90 transition-transform shadow-md">
+        <div className="relative p-3 rounded-full bg-black/40 backdrop-blur-md border border-white/15 group-active:scale-90 transition-transform">
           <svg
             viewBox="0 0 24 24"
             fill={isLiked ? "#f472b6" : "none"}
             stroke={isLiked ? "#f472b6" : "currentColor"}
             strokeWidth="2"
-            className={`h-5 w-5 transition-all duration-200 ${
+            className={`h-6 w-6 transition-all duration-200 ${
               isLiked ? "scale-110 drop-shadow-[0_0_8px_rgba(244,114,182,0.8)]" : "text-white"
             }`}
           >
@@ -102,9 +102,9 @@ export default function GenZActionsRail({
           {likeParticles.map((p, idx) => (
             <span
               key={p.id}
-              className="absolute inset-0 flex items-center justify-center text-xl pointer-events-none animate-[gz-float-up_1.3s_ease-out_forwards]"
+              className="absolute inset-0 flex items-center justify-center text-2xl pointer-events-none animate-[gz-float-up_1.3s_ease-out_forwards]"
               style={{
-                left: `${(idx - 1) * 16}px`,
+                left: `${(idx - 1) * 20}px`,
                 animationDelay: `${idx * 0.1}s`,
               }}
             >
@@ -112,7 +112,7 @@ export default function GenZActionsRail({
             </span>
           ))}
         </div>
-        <span className="text-[10px] font-bold mt-0.5 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+        <span className="text-xs font-bold mt-1 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
           {isLiked ? "Liked" : initialLikes}
         </span>
       </button>
@@ -124,20 +124,20 @@ export default function GenZActionsRail({
         className="flex flex-col items-center group cursor-pointer"
         aria-label="Save post"
       >
-        <div className="p-2 rounded-full bg-black/50 backdrop-blur-md border border-white/20 group-active:scale-90 transition-transform shadow-md">
+        <div className="p-3 rounded-full bg-black/40 backdrop-blur-md border border-white/15 group-active:scale-90 transition-transform">
           <svg
             viewBox="0 0 24 24"
             fill={isSaved ? "#fde047" : "none"}
             stroke={isSaved ? "#fde047" : "currentColor"}
             strokeWidth="2"
-            className={`h-5 w-5 transition-all duration-200 ${
+            className={`h-6 w-6 transition-all duration-200 ${
               isSaved ? "scale-110 drop-shadow-[0_0_8px_rgba(253,224,71,0.8)]" : "text-white"
             }`}
           >
             <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
           </svg>
         </div>
-        <span className="text-[10px] font-bold mt-0.5 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+        <span className="text-xs font-bold mt-1 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
           {isSaved ? "Saved" : initialSaves}
         </span>
       </button>
@@ -149,13 +149,13 @@ export default function GenZActionsRail({
         className="flex flex-col items-center group cursor-pointer"
         aria-label="Share post"
       >
-        <div className="p-2 rounded-full bg-black/50 backdrop-blur-md border border-white/20 group-active:scale-90 transition-transform shadow-md">
+        <div className="p-3 rounded-full bg-black/40 backdrop-blur-md border border-white/15 group-active:scale-90 transition-transform">
           <svg
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
             strokeWidth="2"
-            className="h-5 w-5 text-white"
+            className="h-6 w-6 text-white"
           >
             <circle cx="18" cy="5" r="3" />
             <circle cx="6" cy="12" r="3" />
@@ -164,7 +164,7 @@ export default function GenZActionsRail({
             <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
           </svg>
         </div>
-        <span className="text-[10px] font-bold mt-0.5 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+        <span className="text-xs font-bold mt-1 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
           {sharesCount}
         </span>
       </button>

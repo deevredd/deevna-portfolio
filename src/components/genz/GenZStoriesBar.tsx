@@ -24,7 +24,7 @@ export default function GenZStoriesBar({
 }) {
   return (
     <div className="sticky top-0 z-40 bg-black/90 backdrop-blur-md border-b border-white/10 select-none">
-      <div className="flex gap-2.5 sm:gap-3 overflow-x-auto gz-scrollbar-hidden px-3 py-2 items-center">
+      <div className="flex gap-2.5 sm:gap-3.5 overflow-x-auto gz-scrollbar-hidden pl-4 pr-36 sm:pr-48 py-2 items-center">
         {defaultStories.map((s) => {
           const isActive = activeId === s.targetId;
           return (
@@ -32,7 +32,7 @@ export default function GenZStoriesBar({
               key={s.targetId}
               type="button"
               onClick={() => onSelect(s.targetId)}
-              className="flex flex-col items-center gap-1 min-w-[52px] sm:min-w-[56px] focus:outline-none group cursor-pointer"
+              className="flex flex-col items-center gap-1 min-w-[50px] sm:min-w-[56px] focus:outline-none group cursor-pointer"
               aria-label={`Jump to ${s.label}`}
             >
               <div
@@ -42,14 +42,14 @@ export default function GenZStoriesBar({
                     : "bg-gradient-to-br from-white/20 to-white/5 group-hover:from-pink-500/50 group-hover:to-purple-500/50"
                 }`}
               >
-                <div className="h-full w-full rounded-full bg-black p-[1.5px] flex items-center justify-center">
-                  <div className="h-full w-full rounded-full bg-zinc-900 flex items-center justify-center text-base sm:text-lg leading-none">
+                <div className="h-full w-full rounded-full bg-black p-[2px] flex items-center justify-center">
+                  <div className="h-full w-full rounded-full bg-zinc-900 flex items-center justify-center text-lg leading-none">
                     {s.emoji}
                   </div>
                 </div>
               </div>
               <span
-                className={`text-[10px] font-semibold tracking-tight whitespace-nowrap transition-colors ${
+                className={`text-[10px] sm:text-[11px] font-semibold tracking-tight whitespace-nowrap transition-colors ${
                   isActive ? "text-pink-300 font-bold drop-shadow-sm" : "text-slate-100 group-hover:text-white font-semibold drop-shadow-sm"
                 }`}
               >

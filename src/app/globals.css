@@ -255,8 +255,8 @@
 }
 
 .gz-font-hand {
-  font-family: "Caveat", "Comic Sans MS", cursive;
-  letter-spacing: 0;
+  font-family: "Fredoka", "Inter", system-ui, sans-serif;
+  letter-spacing: 0.02em;
 }
 
 .gz-highlight {
