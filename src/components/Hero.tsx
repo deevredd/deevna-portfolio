@@ -61,23 +61,14 @@ export default function Hero() {
             .
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center gap-4">
+          <div className="mt-8 flex items-center gap-6">
             <a
               href="#contact"
               className="rounded-xl bg-gradient-to-r from-mauve via-pink to-peach px-7 py-3.5 text-sm font-bold text-crust shadow-[0_0_25px_rgba(203,166,247,0.35)] hover:shadow-[0_0_35px_rgba(244,114,182,0.5)] hover:scale-105 active:scale-95 transition-all duration-200"
             >
               {t(hero.cta)}
             </a>
-            <a
-              href="/Deevna_Reddy_Resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-xl border border-surface2 bg-mantle/80 hover:bg-surface0 hover:border-mauve/50 px-6 py-3.5 text-sm font-bold text-slate-100 hover:text-white transition-all duration-200 flex items-center gap-2 shadow-sm active:scale-95 cursor-pointer"
-            >
-              <span>📄</span>
-              <span>Download Resume (PDF)</span>
-            </a>
-            <ul className="flex items-center gap-3">
+            <ul className="flex items-center gap-4">
               {socials.map((s, idx) => {
                 const hoverColor = ["hover:text-sky hover:border-sky/40", "hover:text-mauve hover:border-mauve/40", "hover:text-peach hover:border-peach/40"][idx % 3];
                 return (
