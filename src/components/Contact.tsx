@@ -23,8 +23,9 @@ export default function Contact() {
               </a>
             </div>
             <div className="p-4 rounded-xl border border-surface2 bg-mantle/70 hover:border-green/50 transition-colors shadow-sm">
-              <p className="font-mono text-xs font-bold tracking-wider text-green mb-1.5">PHONE</p>
-              <p className="text-white font-semibold text-sm sm:text-base" style={{ color: "#ffffff" }}>{contact.phone}</p>
+              <p className="font-mono text-xs font-bold tracking-wider text-green mb-1.5">BASE LOCATION</p>
+              <p className="text-white font-semibold text-sm sm:text-base" style={{ color: "#ffffff" }}>Chennai, India</p>
+              <p className="font-mono text-[11px] text-slate-300 mt-0.5">Open to remote & relocation</p>
             </div>
             <div className="sm:col-span-2 p-4 rounded-xl border border-surface2 bg-mantle/70">
               <p className="font-mono text-xs font-bold tracking-wider text-mauve mb-3">SOCIAL</p>

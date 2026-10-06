@@ -464,7 +464,7 @@ export const slides: Slide[] = [
         text: "We have an open engineering role. Would love to connect!",
         delay: 4000,
       },
-      { side: "you", text: "Sounds great! Feel free to reach out via email or phone 🚀", delay: 5300 },
+      { side: "you", text: "Sounds great! Feel free to reach out via email 🚀", delay: 5300 },
     ],
     closingNote: "Based in Chennai · Open to global remote and on site opportunities",
     caption: "Available for full time backend & machine learning engineering roles ⚡",

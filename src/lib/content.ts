@@ -297,5 +297,4 @@ export const contact = {
       "Always down for new challenges + collabs. Question, opportunity, or just wanna say hi, shoot your shot, I'll hit back.",
   },
   email: "deevnared@gmail.com",
-  phone: "+91 99•••••••• (Available on request)",
 };
