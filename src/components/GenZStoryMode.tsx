@@ -255,7 +255,7 @@ function HeroSlide({
               </div>
             </div>
           </button>
-          <div className="absolute -right-7 -top-2 gz-font-hand text-lg sm:text-xl text-yellow-300 font-bold drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] rotate-[10deg] select-none pointer-events-none tracking-wide">
+          <div className="absolute -right-8 -top-3 gz-font-hand text-2xl sm:text-3xl text-yellow-300 font-bold drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] rotate-[12deg] select-none pointer-events-none">
             {slide.sticker}!
           </div>
         </div>
