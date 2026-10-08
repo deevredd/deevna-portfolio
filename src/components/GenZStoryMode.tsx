@@ -237,29 +237,41 @@ function HeroSlide({
 
       <div className="relative z-10 max-w-sm sm:max-w-md w-full flex flex-col items-center">
         {/* Profile Avatar with Gradient Ring & Doodles */}
-        <div className="relative mb-3">
+        <div className="relative mb-3 flex flex-col items-center">
           <SparkleStar className="absolute -left-6 top-1 text-2xl" />
           <SparkleStar className="absolute -right-5 bottom-2 text-xl" style={{ animationDelay: "1.2s" }} />
 
-          <button
-            type="button"
-            onClick={handleAvatarClick}
-            title="Tap to switch avatar mood"
-            className={`relative h-24 w-24 sm:h-28 sm:w-28 rounded-full gz-gradient-ring p-[2.5px] shadow-[0_0_25px_rgba(244,114,182,0.5)] cursor-pointer active:scale-95 transition-transform ${
-              avatarWobble ? "animate-[gz-shake_0.4s_ease]" : "hover:scale-105"
-            }`}
-          >
-            <div className="h-full w-full rounded-full bg-black p-[2px] flex items-center justify-center">
-              <div className="h-full w-full rounded-full bg-gradient-to-br from-pink-500/40 via-purple-600/40 to-indigo-600/40 flex items-center justify-center text-4xl sm:text-5xl select-none">
-                {avatarList[avatarIdx]}
-              </div>
+          {/* Terminal Executable Pill */}
+          <div className="mb-2">
+            <div className="flex items-center gap-2 bg-black/90 border border-amber-400/80 px-3.5 py-1 rounded-md shadow-[0_0_20px_rgba(251,191,36,0.35)] font-mono text-xs select-none">
+              <span className="text-amber-400 font-bold">➜</span>
+              <span className="text-amber-200 font-bold">./hi_bestie.exe</span>
+              <span className="text-[9px] bg-amber-400 text-black px-1.5 py-0.5 rounded font-black tracking-wide">
+                RUNNING
+              </span>
             </div>
-          </button>
-          <div
-            className="absolute -right-8 -top-3 gz-font-hand text-2xl sm:text-3xl text-yellow-300 font-bold drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] rotate-[12deg] select-none pointer-events-none"
-            style={{ fontFamily: '"Caveat", "Permanent Marker", cursive, sans-serif' }}
-          >
-            {slide.sticker}!
+          </div>
+
+          <div className="relative">
+            <button
+              type="button"
+              onClick={handleAvatarClick}
+              title="Tap to switch avatar mood"
+              className={`relative h-24 w-24 sm:h-28 sm:w-28 rounded-full gz-gradient-ring p-[2.5px] shadow-[0_0_25px_rgba(244,114,182,0.5)] cursor-pointer active:scale-95 transition-transform ${
+                avatarWobble ? "animate-[gz-shake_0.4s_ease]" : "hover:scale-105"
+              }`}
+            >
+              <div className="h-full w-full rounded-full bg-black p-[2px] flex items-center justify-center">
+                <div className="h-full w-full rounded-full bg-gradient-to-br from-pink-500/40 via-purple-600/40 to-indigo-600/40 flex items-center justify-center text-4xl sm:text-5xl select-none">
+                  {avatarList[avatarIdx]}
+                </div>
+              </div>
+            </button>
+
+            {/* Terminal Corner Node */}
+            <div className="absolute -top-1 -left-1 h-5 w-5 rounded bg-black border border-amber-400/80 flex items-center justify-center font-mono text-[9px] text-amber-300 shadow-md">
+              &gt;_
+            </div>
           </div>
         </div>
 
