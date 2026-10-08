@@ -255,7 +255,10 @@ function HeroSlide({
               </div>
             </div>
           </button>
-          <div className="absolute -right-8 -top-3 gz-font-hand text-2xl sm:text-3xl text-yellow-300 font-bold drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] rotate-[12deg] select-none pointer-events-none">
+          <div
+            className="absolute -right-8 -top-3 gz-font-hand text-2xl sm:text-3xl text-yellow-300 font-bold drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] rotate-[12deg] select-none pointer-events-none"
+            style={{ fontFamily: '"Caveat", "Permanent Marker", cursive, sans-serif' }}
+          >
             {slide.sticker}!
           </div>
         </div>

@@ -40,37 +40,45 @@ export default function Header() {
   if (mode === "genz") return null;
 
   return (
-    <header className="sticky top-0 z-30 border-b border-surface1/60 bg-crust/85 backdrop-blur-md transition-all font-sans">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 sm:px-10 py-4">
-        <a href="#top" className="font-bold text-white text-lg tracking-tight hover:text-mauve transition-colors flex items-center gap-2">
-          <span className="h-2 w-2 rounded-full bg-mauve shadow-sm" />
-          <span>Deevna Reddy</span>
+    <header className="sticky top-0 z-30 border-b border-surface1 bg-crust/90 backdrop-blur-md transition-all">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 sm:px-10 py-3.5">
+        <a href="#top" className="flex items-center gap-2 font-mono text-xs sm:text-sm text-slate-200 hover:text-white transition-colors group">
+          <span className="text-emerald-400 font-bold group-hover:text-emerald-300">~</span>
+          <span className="text-slate-500 font-mono">/</span>
+          <span className="font-semibold text-white tracking-tight">deevna.reddy</span>
         </a>
 
-        <nav className="hidden md:flex items-center gap-1 bg-surface0/60 p-1 rounded-full border border-surface1/80 text-xs">
+        <nav className="hidden md:flex items-center gap-1.5 font-mono text-xs">
           {nav.map((item) => {
             const isActive = activeSection === item.id;
             return (
               <a
                 key={item.id}
                 href={`#${item.id}`}
-                className={`px-3.5 py-1.5 rounded-full font-semibold transition-all duration-200 ${
+                className={`px-3 py-1.5 rounded-lg transition-all duration-200 border ${
                   isActive
-                    ? "bg-surface1 text-white shadow-sm border border-surface2"
-                    : "text-slate-300 hover:text-white"
+                    ? "bg-surface1 text-mauve font-bold border-mauve/40 shadow-sm"
+                    : "text-slate-400 hover:text-slate-200 hover:bg-surface0/60 border-transparent"
                 }`}
               >
-                <span className="text-mauve font-bold mr-1">{item.num}.</span> {item.label}
+                <span className="text-slate-500 font-normal">~/</span>
+                {item.id}
               </a>
             );
           })}
         </nav>
 
         <div className="flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-1.5 font-mono text-[11px] text-slate-400 bg-surface0/60 px-2.5 py-1 rounded-md border border-surface1">
+            <span className="text-slate-500">status:</span>
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="font-semibold text-emerald-400">200 OK</span>
+          </div>
+
           <button
             type="button"
             onClick={() => window.dispatchEvent(new CustomEvent("open-terminal"))}
-            className="hidden sm:flex items-center gap-2 bg-surface0/80 hover:bg-surface1 text-slate-200 hover:text-white px-3 py-1.5 rounded-full border border-surface1 hover:border-slate-500 text-xs transition-all active:scale-95 cursor-pointer shadow-sm"
+            className="flex items-center gap-2 bg-surface0/80 hover:bg-surface1 text-slate-200 hover:text-white px-3 py-1.5 rounded-lg border border-surface1 hover:border-slate-500 font-mono text-xs transition-all active:scale-95 cursor-pointer shadow-sm"
             title="Open Interactive Terminal (⌘K)"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
@@ -83,12 +91,24 @@ export default function Header() {
         </div>
       </div>
 
-      <nav className="md:hidden flex gap-6 overflow-x-auto px-6 pb-3 -mt-1 font-sans">
-        {nav.map((item) => (
-          <a key={item.id} href={`#${item.id}`} className="text-xs font-semibold text-slate-100 hover:text-white whitespace-nowrap">
-            <span className="text-mauve font-bold mr-1">{item.num}.</span> {item.label}
-          </a>
-        ))}
+      <nav className="md:hidden flex gap-2 overflow-x-auto px-6 pb-3 -mt-1 font-mono text-xs">
+        {nav.map((item) => {
+          const isActive = activeSection === item.id;
+          return (
+            <a
+              key={item.id}
+              href={`#${item.id}`}
+              className={`px-2.5 py-1 rounded-md whitespace-nowrap transition-colors border ${
+                isActive
+                  ? "bg-surface1 text-mauve font-bold border-mauve/40"
+                  : "text-slate-400 hover:text-white bg-surface0/40 border-transparent"
+              }`}
+            >
+              <span className="text-slate-500 font-normal">~/</span>
+              {item.id}
+            </a>
+          );
+        })}
       </nav>
     </header>
   );

@@ -73,7 +73,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           rel="stylesheet"
         />
       </head>
-      <body className="flex h-full flex-col font-sans bg-crust text-text selection:bg-mauve selection:text-crust">
+      <body
+        className="flex h-full flex-col font-sans bg-crust text-text selection:bg-mauve selection:text-crust"
+        style={{ fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}
+      >
         <GenZProvider>{children}</GenZProvider>
       </body>
     </html>

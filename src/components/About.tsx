@@ -11,9 +11,16 @@ export default function About() {
     <Section id="about" num="01" heading={t(about.heading)}>
       <Reveal>
         <div className="grid lg:grid-cols-[1.3fr_1fr] gap-10 lg:gap-16 items-center">
-          <div className="space-y-5 text-white leading-relaxed text-base sm:text-lg font-normal" style={{ color: "#ffffff" }}>
+          <div
+            className="space-y-5 text-white leading-relaxed text-base sm:text-lg font-normal font-sans"
+            style={{ color: "#ffffff", fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}
+          >
             {about.paragraphs.map((p, i) => (
-              <p key={i} className="leading-relaxed" style={{ color: "#ffffff" }}>
+              <p
+                key={i}
+                className="leading-relaxed font-sans"
+                style={{ color: "#ffffff", fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}
+              >
                 {t(p)}
               </p>
             ))}
