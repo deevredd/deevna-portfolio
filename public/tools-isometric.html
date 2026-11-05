@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>02 · Toolkit — The Tools Behind the Work | Deevna Reddy</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f6f4ef;
+  --ink: #161616;
+  --mute: #77746d;
+  --line: #dcd6c8;
+  --accent: #f0553a;
+  --accent-soft: rgba(240, 85, 58, 0.12);
+  --paper: #fffdf8;
+  --paper-card: #faf8f2;
+  --card-border: #e2dcd0;
+  --serif: "Instrument Serif", Georgia, serif;
+  --sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+  --hand: "Caveat", cursive;
+}
+:root[data-theme="dark"] {
+  --bg: #121211;
+  --ink: #f1eee6;
+  --mute: #9a968c;
+  --line: #35332f;
+  --paper: #1c1b19;
+  --paper-card: #181715;
+  --card-border: #38352f;
+  --accent-soft: rgba(240, 85, 58, 0.2);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  padding: 50px 24px 100px;
+}
+.wrap { max-width: 1100px; margin: 0 auto; }
+.mono { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--mute); }
+
+/* Top controls */
+.top-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 40px;
+}
+.theme-btn {
+  font: 500 11px var(--mono);
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   TOOLKIT SECTION RECREATION
+   ========================================================================== */
+.toolkit-section {
+  position: relative;
+  border-top: 1px solid var(--line);
+  padding-top: 48px;
+}
+
+/* Header */
+.tk-header {
+  margin-bottom: 36px;
+  max-width: 620px;
+}
+.tk-mono {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--mute);
+  display: block;
+  margin-bottom: 10px;
+}
+.tk-title {
+  font-family: var(--serif);
+  font-size: clamp(38px, 5.2vw, 58px);
+  font-weight: 400;
+  line-height: 1.05;
+  margin-bottom: 12px;
+  color: var(--ink);
+}
+.tk-title em {
+  font-style: italic;
+  font-family: var(--serif);
+  color: inherit;
+}
+.tk-title .dot {
+  color: var(--accent);
+  display: inline-block;
+}
+.tk-desc {
+  color: var(--mute);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* Main Grid: Left Isometric Stack + Right Inspector Card */
+.tk-layout {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 48px;
+  align-items: start;
+  margin-top: 20px;
+}
+@media (max-width: 960px) {
+  .tk-layout { grid-template-columns: 1fr; gap: 36px; }
+}
+
+/* LEFT: ISOMETRIC STACK & LABELS */
+.stack-stage {
+  display: grid;
+  grid-template-columns: 290px 1fr;
+  align-items: center;
+  gap: 20px;
+}
+@media (max-width: 640px) {
+  .stack-stage { grid-template-columns: 1fr; }
+}
+
+/* Isometric SVG Canvas */
+.iso-canvas {
+  width: 100%;
+  height: 380px;
+  overflow: visible;
+}
+.iso-slab {
+  cursor: pointer;
+  transition: transform .35s cubic-bezier(0.16, 1, 0.3, 1), filter .3s;
+}
+.iso-slab:hover, .iso-slab.active {
+  transform: translateY(-8px) scale(1.02);
+}
+.iso-slab .slab-top {
+  fill: var(--paper);
+  stroke: var(--card-border);
+  stroke-width: 1.2;
+  transition: fill .3s, stroke .3s;
+}
+.iso-slab .slab-left {
+  fill: #e8e2d4;
+  stroke: var(--card-border);
+  stroke-width: 1.2;
+  transition: fill .3s, stroke .3s;
+}
+.iso-slab .slab-right {
+  fill: #d8d0bf;
+  stroke: var(--card-border);
+  stroke-width: 1.2;
+  transition: fill .3s, stroke .3s;
+}
+:root[data-theme="dark"] .iso-slab .slab-top { fill: #22201d; stroke: #3d3a33; }
+:root[data-theme="dark"] .iso-slab .slab-left { fill: #1c1a17; stroke: #3d3a33; }
+:root[data-theme="dark"] .iso-slab .slab-right { fill: #151412; stroke: #3d3a33; }
+
+/* Active slab highlight in coral */
+.iso-slab.active .slab-top {
+  fill: #fae4dc;
+  stroke: var(--accent);
+}
+.iso-slab.active .slab-left {
+  fill: #f5c4b6;
+  stroke: var(--accent);
+}
+.iso-slab.active .slab-right {
+  fill: #e8a998;
+  stroke: var(--accent);
+}
+:root[data-theme="dark"] .iso-slab.active .slab-top { fill: #3d231e; stroke: var(--accent); }
+:root[data-theme="dark"] .iso-slab.active .slab-left { fill: #2e1a16; stroke: var(--accent); }
+:root[data-theme="dark"] .iso-slab.active .slab-right { fill: #241411; stroke: var(--accent); }
+
+/* Floor shadow plate */
+.floor-shadow {
+  fill: rgba(0, 0, 0, 0.04);
+}
+:root[data-theme="dark"] .floor-shadow {
+  fill: rgba(0, 0, 0, 0.25);
+}
+
+/* Layer Labels List on the right of the stack */
+.layer-labels {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding-left: 10px;
+}
+.layer-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  transition: transform .2s ease;
+  user-select: none;
+}
+.layer-row:hover {
+  transform: translateX(4px);
+}
+.layer-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--card-border);
+  border: 2px solid var(--paper);
+  box-shadow: 0 0 0 1px var(--card-border);
+  transition: all .25s ease;
+  flex-shrink: 0;
+}
+.layer-row.active .layer-dot, .layer-row:hover .layer-dot {
+  background: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent), 0 0 8px rgba(240, 85, 58, 0.5);
+}
+.layer-info h4 {
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--ink);
+  transition: color .2s;
+}
+.layer-row.active .layer-info h4 {
+  color: var(--accent);
+}
+.layer-info span {
+  display: block;
+  font-family: var(--sans);
+  font-size: 12.5px;
+  color: var(--mute);
+  margin-top: 2px;
+}
+
+/* Connector Lines SVG */
+.connector-line {
+  stroke: var(--line);
+  stroke-width: 1.2;
+  stroke-dasharray: 3 3;
+  transition: stroke .25s;
+}
+.connector-line.active {
+  stroke: var(--accent);
+  stroke-width: 1.6;
+}
+
+/* ==========================================================================
+   RIGHT COLUMN: PEEKING CAT + INSPECTOR CARD
+   ========================================================================== */
+.inspector-column {
+  position: relative;
+  padding-top: 52px; /* space for the peeking cat */
+}
+
+/* Hand-Drawn Peeking Cat */
+.peeking-cat-wrap {
+  position: absolute;
+  top: 0;
+  right: 28px;
+  width: 140px;
+  height: 56px;
+  pointer-events: auto;
+  cursor: pointer;
+}
+.peeking-cat-wrap svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.cat-line {
+  stroke: var(--ink);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+.cat-body-fill {
+  fill: var(--bg);
+}
+.cat-whisker-spark {
+  stroke: var(--accent);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+/* The Inspector Card */
+.inspector-card {
+  background: var(--paper);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  padding: 26px 28px 28px;
+  box-shadow: 0 12px 32px -12px rgba(0, 0, 0, 0.05);
+  position: relative;
+  transition: all .3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+:root[data-theme="dark"] .inspector-card {
+  box-shadow: 0 16px 36px -16px rgba(0, 0, 0, 0.35);
+}
+
+/* Card Top Bar */
+.insp-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+  border-bottom: 1px dashed var(--line);
+  margin-bottom: 24px;
+}
+.insp-badge {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font: 700 11px var(--mono);
+  letter-spacing: .14em;
+  color: var(--ink);
+}
+.insp-green-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+  display: inline-block;
+}
+.insp-tech-explore {
+  font: 500 11px var(--mono);
+  color: var(--mute);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.insp-kbd {
+  font: 600 10px var(--mono);
+  padding: 2px 5px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--bg);
+}
+
+/* Tool Header: Name + Logo */
+.insp-tool-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.insp-tool-name {
+  font-family: var(--serif);
+  font-size: 38px;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--ink);
+}
+.insp-tool-logo {
+  max-width: 68px;
+  max-height: 38px;
+  object-fit: contain;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Tool Description */
+.insp-tool-desc {
+  color: var(--mute);
+  font-size: 14.5px;
+  line-height: 1.5;
+  margin-bottom: 26px;
+}
+
+/* Sub-pills for current layer */
+.insp-tool-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 24px;
+}
+.insp-chip {
+  font: 500 12px var(--sans);
+  padding: 5px 12px;
+  border-radius: 99px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--ink);
+  cursor: pointer;
+  transition: all .2s;
+}
+.insp-chip:hover, .insp-chip.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+/* "USED FOR" Section */
+.insp-used-for-label {
+  font: 700 10.5px var(--mono);
+  letter-spacing: .16em;
+  color: var(--ink);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: block;
+}
+.insp-used-for-text {
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--ink);
+  margin-bottom: 26px;
+}
+
+/* Action Link */
+.insp-action-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  transition: transform .2s, gap .2s;
+}
+.insp-action-link:hover {
+  transform: translateX(4px);
+  gap: 9px;
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <!-- Top bar -->
+  <div class="top-controls">
+    <span class="mono">DEEVNA REDDY · PORTFOLIO REFINEMENT</span>
+    <button class="theme-btn" onclick="toggleTheme()">☀️ / 🌙 TOGGLE THEME</button>
+  </div>
+
+  <!-- TOOLKIT SECTION -->
+  <section class="toolkit-section">
+    <!-- Header -->
+    <div class="tk-header">
+      <span class="tk-mono">02 · TOOLKIT</span>
+      <h2 class="tk-title">the tools behind the <em>work</em><span class="dot">.</span></h2>
+      <p class="tk-desc">
+        A look at the languages, systems and ML technologies I use to turn ideas into production-ready software.
+      </p>
+    </div>
+
+    <!-- Main Layout -->
+    <div class="tk-layout">
+      <!-- LEFT: ISOMETRIC ARCHITECTURAL STACK -->
+      <div class="stack-stage">
+        <!-- Isometric SVG Slabs -->
+        <svg class="iso-canvas" viewBox="0 0 280 380" id="isoSvg">
+          <!-- Floor projection shadow -->
+          <polygon class="floor-shadow" points="140,290 250,335 140,380 30,335" />
+
+          <!-- SLAB 5 (Bottom): Infrastructure (AWS, Docker) -->
+          <g class="iso-slab" id="slab-5" onclick="selectLayer(5)" transform="translate(0, 240)">
+            <polygon class="slab-left" points="30,45 140,90 140,105 30,60"/>
+            <polygon class="slab-right" points="140,90 250,45 250,60 140,105"/>
+            <polygon class="slab-top" points="140,0 250,45 140,90 30,45"/>
+          </g>
+
+          <!-- SLAB 4: Data Layer (DynamoDB, S3, SQL, LiDAR) -->
+          <g class="iso-slab" id="slab-4" onclick="selectLayer(4)" transform="translate(0, 180)">
+            <polygon class="slab-left" points="30,45 140,90 140,105 30,60"/>
+            <polygon class="slab-right" points="140,90 250,45 250,60 140,105"/>
+            <polygon class="slab-top" points="140,0 250,45 140,90 30,45"/>
+          </g>
+
+          <!-- SLAB 3: Backend Services (Java 17, Native C++, Microservices) -->
+          <g class="iso-slab" id="slab-3" onclick="selectLayer(3)" transform="translate(0, 120)">
+            <polygon class="slab-left" points="30,45 140,90 140,105 30,60"/>
+            <polygon class="slab-right" points="140,90 250,45 250,60 140,105"/>
+            <polygon class="slab-top" points="140,0 250,45 140,90 30,45"/>
+          </g>
+
+          <!-- SLAB 2: AI Layer (PyTorch, Multi-agent RAG, SHAP) -->
+          <g class="iso-slab" id="slab-2" onclick="selectLayer(2)" transform="translate(0, 60)">
+            <polygon class="slab-left" points="30,45 140,90 140,105 30,60"/>
+            <polygon class="slab-right" points="140,90 250,45 250,60 140,105"/>
+            <polygon class="slab-top" points="140,0 250,45 140,90 30,45"/>
+          </g>
+
+          <!-- SLAB 1 (Top): Applications (Products & Services) -->
+          <g class="iso-slab active" id="slab-1" onclick="selectLayer(1)" transform="translate(0, 0)">
+            <polygon class="slab-left" points="30,45 140,90 140,105 30,60"/>
+            <polygon class="slab-right" points="140,90 250,45 250,60 140,105"/>
+            <polygon class="slab-top" points="140,0 250,45 140,90 30,45"/>
+          </g>
+        </svg>
+
+        <!-- Layer Labels List with connecting dots -->
+        <div class="layer-labels">
+          <div class="layer-row active" id="row-1" onclick="selectLayer(1)">
+            <span class="layer-dot"></span>
+            <div class="layer-info">
+              <h4>Applications</h4>
+              <span>(Products &amp; Services)</span>
+            </div>
+          </div>
+
+          <div class="layer-row" id="row-2" onclick="selectLayer(2)">
+            <span class="layer-dot"></span>
+            <div class="layer-info">
+              <h4>AI Layer</h4>
+              <span>(RAG · ML Models)</span>
+            </div>
+          </div>
+
+          <div class="layer-row" id="row-3" onclick="selectLayer(3)">
+            <span class="layer-dot"></span>
+            <div class="layer-info">
+              <h4>Backend Services</h4>
+              <span>(Microservices)</span>
+            </div>
+          </div>
+
+          <div class="layer-row" id="row-4" onclick="selectLayer(4)">
+            <span class="layer-dot"></span>
+            <div class="layer-info">
+              <h4>Data Layer</h4>
+              <span>(ETL · Databases)</span>
+            </div>
+          </div>
+
+          <div class="layer-row" id="row-5" onclick="selectLayer(5)">
+            <span class="layer-dot"></span>
+            <div class="layer-info">
+              <h4>Infrastructure</h4>
+              <span>(AWS · Docker)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: PEEKING CAT + INSPECTOR CARD -->
+      <div class="inspector-column">
+        <!-- Peeking Cat SVG -->
+        <div class="peeking-cat-wrap" onclick="petPeekingCat()">
+          <svg viewBox="0 0 160 64" fill="none">
+            <!-- Whiskers sparks above left ear -->
+            <path d="M 32 18 L 22 10" class="cat-whisker-spark"/>
+            <path d="M 38 12 L 36 2" class="cat-whisker-spark"/>
+            <path d="M 46 16 L 52 8" class="cat-whisker-spark"/>
+
+            <!-- Desk line / border top -->
+            <path d="M 2 56 L 158 56" class="cat-line" style="stroke-width:1.5; stroke:var(--card-border);"/>
+
+            <!-- Cat Head & Ears -->
+            <path d="M 44 56 C 42 42, 45 28, 52 24 
+                     C 55 22, 60 20, 64 26 
+                     C 76 24, 94 24, 106 26 
+                     C 110 20, 115 22, 118 24 
+                     C 125 28, 128 42, 126 56 Z" 
+                  class="cat-body-fill" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"/>
+
+            <!-- Inner Ear Creases -->
+            <path d="M 54 26 L 60 32" class="cat-line" style="stroke-width:1.4"/>
+            <path d="M 116 26 L 110 32" class="cat-line" style="stroke-width:1.4"/>
+
+            <!-- Eyes -->
+            <circle cx="74" cy="38" r="2.2" fill="var(--ink)"/>
+            <circle cx="96" cy="38" r="2.2" fill="var(--ink)"/>
+
+            <!-- Nose & Mouth -->
+            <path d="M 85 41 L 85 43 M 82 45 Q 85 47 88 45" class="cat-line" style="stroke-width:1.5"/>
+
+            <!-- Paws resting over the edge -->
+            <path d="M 52 56 C 52 50, 60 50, 60 56" class="cat-line cat-body-fill" style="stroke-width:1.8"/>
+            <path d="M 110 56 C 110 50, 118 50, 118 56" class="cat-line cat-body-fill" style="stroke-width:1.8"/>
+          </svg>
+        </div>
+
+        <!-- The Inspector Card -->
+        <div class="inspector-card" id="inspCard">
+          <div class="insp-top-bar">
+            <div class="insp-badge">
+              <span class="insp-green-dot"></span>
+              <span>INSPECTOR</span>
+            </div>
+            <div class="insp-tech-explore">
+              <span>&gt; explore tech</span>
+              <kbd class="insp-kbd">⌘K</kbd>
+            </div>
+          </div>
+
+          <div class="insp-tool-header">
+            <h3 class="insp-tool-name" id="toolName">AWS</h3>
+            <div class="insp-tool-logo" id="toolLogo">
+              <!-- AWS SVG Logo -->
+              <svg viewBox="0 0 80 48" width="64" height="38" fill="none">
+                <path d="M22 28c-4.4 0-8-3-8-8s3.6-8 8-8c3 0 5.4 1.4 6.8 3.6l-3.2 2c-.8-1.2-2-1.8-3.6-1.8-2.3 0-4.2 1.8-4.2 4.2s1.9 4.2 4.2 4.2c1.6 0 2.8-.7 3.6-1.8l3.2 2c-1.4 2.2-3.8 3.6-6.8 3.6z" fill="#f0553a"/>
+                <path d="M38 12.5h4v15h-4v-1.8c-1.2 1.4-3 2.1-4.8 2.1-4 0-7.2-3.2-7.2-7.6s3.2-7.6 7.2-7.6c1.8 0 3.6.7 4.8 2.1v-2.2zm-4 11.5c2.3 0 4-1.7 4-4s-1.7-4-4-4-4 1.7-4 4 1.7 4 4 4z" fill="var(--ink)"/>
+                <path d="M57 12.5l-4 15h-3.6l-2.8-10.4-2.8 10.4H40l-4-15h4.2l2 9.5 2.8-9.5h3.6l2.8 9.5 2-9.5H57z" fill="var(--ink)"/>
+                <!-- AWS Smile Curve -->
+                <path d="M12 36c18 8 40 8 56-2" stroke="#f0553a" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M66 32l4 3-5 2 1-5z" fill="#f0553a"/>
+              </svg>
+            </div>
+          </div>
+
+          <p class="insp-tool-desc" id="toolDesc">
+            Cloud infrastructure for building scalable, resilient systems.
+          </p>
+
+          <!-- Layer Sub-Pills -->
+          <div class="insp-tool-chips" id="toolChips">
+            <span class="insp-chip active" onclick="selectSubTool('AWS')">AWS</span>
+            <span class="insp-chip" onclick="selectSubTool('Docker')">Docker</span>
+            <span class="insp-chip" onclick="selectSubTool('CI/CD')">CI/CD</span>
+            <span class="insp-chip" onclick="selectSubTool('Linux')">Linux</span>
+          </div>
+
+          <span class="insp-used-for-label">USED FOR</span>
+          <p class="insp-used-for-text" id="toolUsedFor">
+            Hosting production services, scaling to 50M+ users.
+          </p>
+
+          <a href="#journey" class="insp-action-link" id="toolActionLink">
+            <span id="toolActionText">→ Explore Amazon experience</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+// Data for the 5 Layers matching the uploaded inspiration
+const layersData = {
+  1: {
+    name: "Applications",
+    subtitle: "(Products & Services)",
+    toolTitle: "Products & UI",
+    desc: "Frontend interfaces, clinical dashboards and client-facing web applications designed for low-friction user interaction.",
+    chips: ["Next.js", "TypeScript", "React", "Tailwind CSS"],
+    usedFor: "Building responsive claims triage portals and research interactive visualizers.",
+    actionText: "→ Explore project case studies",
+    actionLink: "#projects",
+    logoSvg: `<svg viewBox="0 0 60 40" width="56" height="36" fill="none"><rect width="56" height="36" rx="6" stroke="var(--ink)" stroke-width="2"/><path d="M16 16l6 6-6 6M28 28h14" stroke="#f0553a" stroke-width="2.5" stroke-linecap="round"/></svg>`
+  },
+  2: {
+    name: "AI Layer",
+    subtitle: "(RAG · ML Models)",
+    toolTitle: "PyTorch & RAG",
+    desc: "Deep learning models, neural retrieval graphs, and multimodal fusion architectures for high-stakes clinical and claims automation.",
+    chips: ["PyTorch", "Multi-Agent RAG", "FastEmbed", "SHAP", "DenseNet121"],
+    usedFor: "Biomarker discovery (IEEE ICCDS '25) and automated clinical claim triage.",
+    actionText: "→ Explore research publications",
+    actionLink: "#projects",
+    logoSvg: `<svg viewBox="0 0 60 40" width="56" height="36" fill="none"><path d="M30 6l-12 18h10l-4 12 16-18h-10l4-12z" fill="#f0553a"/><circle cx="16" cy="14" r="3" fill="var(--ink)"/><circle cx="44" cy="14" r="3" fill="var(--ink)"/><circle cx="46" cy="30" r="3" fill="var(--ink)"/></svg>`
+  },
+  3: {
+    name: "Backend Services",
+    subtitle: "(Microservices)",
+    toolTitle: "Java JDK 17",
+    desc: "High-throughput, zero-downtime distributed microservices running mission-critical backend workloads.",
+    chips: ["Java 17", "Native C++", "Python", "Microservices", "Policy Engine"],
+    usedFor: "15+ zero-downtime service upgrades at Amazon Alexa, on-device Kindle Scribe inference.",
+    actionText: "→ Explore Amazon Alexa work",
+    actionLink: "#journey",
+    logoSvg: `<svg viewBox="0 0 60 40" width="56" height="36" fill="none"><path d="M22 28c4 3 12 3 16 0M20 22c5 2 15 2 20 0M28 10c-2 4 4 6 2 10" stroke="#f0553a" stroke-width="2.2" stroke-linecap="round"/></svg>`
+  },
+  4: {
+    name: "Data Layer",
+    subtitle: "(ETL · Databases)",
+    toolTitle: "DynamoDB & S3",
+    desc: "Partitioned document storage, single-digit millisecond key-value stores, and high-density spatial aerial datasets.",
+    chips: ["DynamoDB", "S3 Bucket", "SQL", "LiDAR Point Clouds", "Redis"],
+    usedFor: "Low-latency user event retrieval and automated aerial drone survey registration.",
+    actionText: "→ Explore REUDE experience",
+    actionLink: "#journey",
+    logoSvg: `<svg viewBox="0 0 60 40" width="56" height="36" fill="none"><ellipse cx="30" cy="12" rx="18" ry="6" stroke="var(--ink)" stroke-width="2"/><path d="M12 12v16c0 3.3 8 6 18 6s18-2.7 18-6V12" stroke="var(--ink)" stroke-width="2"/><path d="M12 20c0 3.3 8 6 18 6s18-2.7 18-6" stroke="#f0553a" stroke-width="2"/></svg>`
+  },
+  5: {
+    name: "Infrastructure",
+    subtitle: "(AWS · Docker)",
+    toolTitle: "AWS",
+    desc: "Cloud infrastructure for building scalable, resilient systems.",
+    chips: ["AWS", "Docker", "CI/CD", "Linux"],
+    usedFor: "Hosting production services, scaling to 50M+ users.",
+    actionText: "→ Explore Amazon experience",
+    actionLink: "#journey",
+    logoSvg: `<svg viewBox="0 0 80 48" width="64" height="38" fill="none"><path d="M22 28c-4.4 0-8-3-8-8s3.6-8 8-8c3 0 5.4 1.4 6.8 3.6l-3.2 2c-.8-1.2-2-1.8-3.6-1.8-2.3 0-4.2 1.8-4.2 4.2s1.9 4.2 4.2 4.2c1.6 0 2.8-.7 3.6-1.8l3.2 2c-1.4 2.2-3.8 3.6-6.8 3.6z" fill="#f0553a"/><path d="M38 12.5h4v15h-4v-1.8c-1.2 1.4-3 2.1-4.8 2.1-4 0-7.2-3.2-7.2-7.6s3.2-7.6 7.2-7.6c1.8 0 3.6.7 4.8 2.1v-2.2zm-4 11.5c2.3 0 4-1.7 4-4s-1.7-4-4-4-4 1.7-4 4 1.7 4 4 4z" fill="var(--ink)"/><path d="M57 12.5l-4 15h-3.6l-2.8-10.4-2.8 10.4H40l-4-15h4.2l2 9.5 2.8-9.5h3.6l2.8 9.5 2-9.5H57z" fill="var(--ink)"/><path d="M12 36c18 8 40 8 56-2" stroke="#f0553a" stroke-width="2.5" stroke-linecap="round"/><path d="M66 32l4 3-5 2 1-5z" fill="#f0553a"/></svg>`
+  }
+};
+
+function selectLayer(id) {
+  // Update Slabs
+  for (let i = 1; i <= 5; i++) {
+    const slab = document.getElementById('slab-' + i);
+    const row = document.getElementById('row-' + i);
+    if (slab) slab.classList.toggle('active', i === id);
+    if (row) row.classList.toggle('active', i === id);
+  }
+
+  // Update Inspector Card
+  const data = layersData[id];
+  if (!data) return;
+
+  const card = document.getElementById('inspCard');
+  card.style.opacity = '0.5';
+  card.style.transform = 'translateY(4px)';
+
+  setTimeout(() => {
+    document.getElementById('toolName').textContent = data.toolTitle;
+    document.getElementById('toolLogo').innerHTML = data.logoSvg;
+    document.getElementById('toolDesc').textContent = data.desc;
+    document.getElementById('toolUsedFor').textContent = data.usedFor;
+    document.getElementById('toolActionText').textContent = data.actionText;
+    document.getElementById('toolActionLink').setAttribute('href', data.actionLink);
+
+    // Render chips
+    const chipsWrap = document.getElementById('toolChips');
+    chipsWrap.innerHTML = data.chips.map((c, idx) => 
+      `<span class="insp-chip ${idx === 0 ? 'active' : ''}" onclick="selectSubTool('${c}', this)">${c}</span>`
+    ).join('');
+
+    card.style.opacity = '1';
+    card.style.transform = 'none';
+  }, 150);
+}
+
+function selectSubTool(name, el) {
+  if (el) {
+    document.querySelectorAll('.insp-chip').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+  }
+}
+
+function petPeekingCat() {
+  const cat = document.querySelector('.peeking-cat-wrap');
+  cat.style.transform = 'translateY(-6px) scale(1.05)';
+  setTimeout(() => cat.style.transform = 'none', 300);
+}
+
+function toggleTheme() {
+  const root = document.documentElement;
+  const isDark = root.getAttribute('data-theme') === 'dark';
+  root.setAttribute('data-theme', isDark ? 'light' : 'dark');
+}
+
+// Initial Selection matches the screenshot: Layer 5 (Infrastructure / AWS)
+selectLayer(5);
+</script>
+
+</body>
+</html>

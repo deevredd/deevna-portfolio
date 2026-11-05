@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Side-by-Side Comparison: Original vs. Calibrated</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f6f4ef;
+  --ink: #121211;
+  --mute: #6f6b64;
+  --line: #dedad0;
+  --paper: #ffffff;
+  --accent: #f0553a;
+  --accent-soft: rgba(240, 85, 58, 0.08);
+  --serif: "Instrument Serif", Georgia, serif;
+  --sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+  --hand: "Caveat", cursive;
+}
+:root[data-theme="dark"] {
+  --bg: #121211;
+  --ink: #f1eee6;
+  --mute: #9a968c;
+  --line: #35332f;
+  --paper: #1c1b19;
+  --accent-soft: rgba(240, 85, 58, 0.16);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 14.5px;
+  line-height: 1.6;
+  padding: 32px 24px 100px;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.3s, color 0.3s;
+}
+.wrap { max-width: 1240px; margin: 0 auto; }
+
+/* Header */
+.header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 20px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.header-title h1 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(34px, 4vw, 48px);
+  line-height: 1.05;
+}
+.header-title h1 em {
+  font-style: italic;
+  color: var(--accent);
+}
+.header-subtitle {
+  font-size: 14px;
+  color: var(--mute);
+  margin-top: 6px;
+}
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.pill-btn {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .08em;
+  padding: 8px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all .2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.pill-btn:hover { border-color: var(--accent); }
+.pill-btn.active {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+}
+
+/* Tab Navigation */
+.tabs-nav {
+  display: flex;
+  gap: 8px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 28px;
+  overflow-x: auto;
+}
+.tab-btn {
+  padding: 12px 18px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 13.5px;
+  color: var(--mute);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all .2s;
+}
+.tab-btn:hover { color: var(--ink); }
+.tab-btn.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* Tab Panels */
+.tab-panel { display: none; }
+.tab-panel.active { display: block; animation: fadeIn .25s ease-out; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Grid Side-by-Side Cards */
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 36px;
+}
+@media (max-width: 900px) {
+  .compare-grid { grid-template-columns: 1fr; }
+}
+
+.compare-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.compare-card.highlight {
+  border-color: var(--accent);
+  box-shadow: 0 10px 30px rgba(240, 85, 58, 0.08);
+}
+.compare-badge-strip {
+  padding: 10px 18px;
+  background: rgba(0,0,0,0.03);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+:root[data-theme="dark"] .compare-badge-strip { background: rgba(255,255,255,0.03); }
+.badge-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+}
+.badge-tag.original { color: var(--mute); }
+.badge-tag.calibrated { color: var(--accent); }
+.badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.specimen-stage {
+  padding: 24px 22px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-height: 480px;
+  background: var(--bg);
+}
+
+/* Original Scale Mockup */
+.stage-original .mock-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+  border-bottom: 1px dashed var(--line);
+  padding-bottom: 12px;
+}
+.stage-original .mock-intro {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 58px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.stage-original .mock-hero-name {
+  font-weight: 800;
+  font-size: 100px;
+  line-height: 0.82;
+  letter-spacing: -0.06em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--ink);
+  margin-top: 4px;
+}
+.stage-original .mock-stats {
+  display: flex;
+  gap: 16px;
+  padding: 18px 0;
+  border-top: 1px solid var(--line);
+  opacity: 0.4;
+  position: relative;
+}
+.stage-original .mock-stats::after {
+  content: "⚠️ PUSHED BELOW THE LAPTOP FOLD ON ORIGINAL";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(240, 85, 58, 0.95);
+  color: #fff;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.stage-original .mock-section-title {
+  font-family: var(--serif);
+  font-size: 46px;
+  line-height: 1;
+}
+
+/* Calibrated Scale Mockup */
+.stage-calibrated .mock-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-bottom: 1px dashed var(--line);
+  padding-bottom: 10px;
+}
+.stage-calibrated .mock-intro {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 38px;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+.stage-calibrated .mock-hero-name {
+  font-weight: 800;
+  font-size: 64px;
+  line-height: 0.88;
+  letter-spacing: -0.05em;
+  color: var(--ink);
+  margin-top: 4px;
+}
+.stage-calibrated .mock-stats {
+  display: flex;
+  gap: 20px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  align-items: center;
+}
+.stage-calibrated .mock-stat-item b {
+  display: block;
+  font-family: var(--serif);
+  font-size: 26px;
+  line-height: 1;
+  color: var(--accent);
+}
+.stage-calibrated .mock-stat-item span {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--mute);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+.stage-calibrated .mock-section-title {
+  font-family: var(--serif);
+  font-size: 34px;
+  line-height: 1.05;
+}
+
+/* Analysis Card Footers */
+.analysis-footer {
+  padding: 16px 20px;
+  background: var(--paper);
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+}
+.analysis-footer ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.analysis-footer li {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.analysis-footer li::before {
+  content: "•";
+  color: var(--accent);
+  font-size: 16px;
+  line-height: 1;
+}
+
+/* Comparison Tables */
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--paper);
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  font-size: 13.5px;
+  margin-bottom: 30px;
+}
+.compare-table th, .compare-table td {
+  padding: 14px 18px;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+.compare-table th {
+  background: rgba(0,0,0,0.02);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+:root[data-theme="dark"] .compare-table th { background: rgba(255,255,255,0.02); }
+.compare-table tr:last-child td { border-bottom: none; }
+.winner-pill {
+  display: inline-block;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+/* Fold Visualizer */
+.fold-visualizer {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 32px;
+}
+.fold-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.fold-banner h3 {
+  font-family: var(--serif);
+  font-size: 22px;
+}
+.fold-banner span {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--mute);
+}
+.fold-screen-box {
+  border: 2px dashed var(--line);
+  border-radius: 8px;
+  height: 260px;
+  position: relative;
+  background: var(--bg);
+  overflow: hidden;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.fold-line {
+  position: absolute;
+  top: 65%;
+  left: 0;
+  right: 0;
+  border-top: 2px dashed var(--accent);
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 14px 0;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: .06em;
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- Header -->
+  <header class="header-bar">
+    <div class="header-title">
+      <span class="pill-btn" style="pointer-events:none;margin-bottom:8px;">SPECIFICATION AUDIT</span>
+      <h1>Original vs. Calibrated <em>Architecture</em></h1>
+      <p class="header-subtitle">Direct side-by-side breakdown of typographic scale, spatial equilibrium, and visual authority.</p>
+    </div>
+    <div class="controls">
+      <button class="pill-btn" onclick="toggleTheme()" id="themeBtn">☀️ / 🌙 THEME</button>
+    </div>
+  </header>
+
+  <!-- Tabs -->
+  <nav class="tabs-nav">
+    <button class="tab-btn active" onclick="switchTab('scaleTab', this)">1. Typography &amp; Scale Comparison</button>
+    <button class="tab-btn" onclick="switchTab('vercelTab', this)">2. Comparison with Vercel Site (deevna-portfolio)</button>
+    <button class="tab-btn" onclick="switchTab('strataTab', this)">3. Toolkit: Flat Matrix vs. 3D Strata</button>
+  </nav>
+
+  <!-- =====================================================================
+       TAB 1: TYPOGRAPHY SCALE COMPARISON
+       ===================================================================== -->
+  <div class="tab-panel active" id="scaleTab">
+
+    <!-- Screen Fold Simulation -->
+    <div class="fold-visualizer">
+      <div class="fold-banner">
+        <h3>Standard Laptop Screen Viewport (1440 × 900)</h3>
+        <span>THE CRITICAL 700PX ABOVE-THE-FOLD ZONE</span>
+      </div>
+      <div class="compare-grid" style="margin-bottom:0;">
+        <!-- Left: Original -->
+        <div style="border:1px solid var(--line);border-radius:8px;padding:16px;background:var(--paper);position:relative;height:240px;overflow:hidden;">
+          <div style="font-family:var(--mono);font-size:10px;color:var(--mute);margin-bottom:6px;">ORIGINAL SCALE VIEWPORT</div>
+          <div style="font-family:var(--serif);font-size:28px;line-height:1;font-style:italic;">Deevna Reddy</div>
+          <div style="font-weight:800;font-size:52px;line-height:0.82;letter-spacing:-.06em;margin:8px 0;">PORTFOLIO.</div>
+          <div style="font-size:11px;color:var(--mute);line-height:1.4;">Software Engineer · Applied ML · Distributed Systems...</div>
+          <div style="position:absolute;bottom:0;left:0;right:0;height:45px;background:linear-gradient(to top, var(--bg), transparent);border-top:1px dashed #f0553a;display:flex;align-items:center;justify-content:center;color:#f0553a;font-family:var(--mono);font-size:10px;font-weight:600;">
+            ⬇ CREDIBILITY METRICS CUT OFF BELOW FOLD
+          </div>
+        </div>
+
+        <!-- Right: Calibrated -->
+        <div style="border:1px solid var(--accent);border-radius:8px;padding:16px;background:var(--paper);position:relative;height:240px;overflow:hidden;">
+          <div style="font-family:var(--mono);font-size:10px;color:var(--accent);margin-bottom:6px;">NEW CALIBRATED VIEWPORT</div>
+          <div style="font-family:var(--serif);font-size:22px;line-height:1;font-style:italic;">Deevna Reddy</div>
+          <div style="font-weight:800;font-size:36px;line-height:0.88;letter-spacing:-.05em;margin:6px 0;">PORTFOLIO.</div>
+          <div style="font-size:11.5px;color:var(--mute);margin-bottom:12px;">Software Engineer · Applied ML · Distributed Systems</div>
+          <div style="display:flex;gap:12px;padding:8px 10px;background:var(--bg);border-radius:6px;border:1px solid var(--line);">
+            <div><b style="font-family:var(--serif);font-size:18px;color:var(--accent);">50M+</b><span style="display:block;font-size:9px;font-family:var(--mono);color:var(--mute);">ALEXA SCALE</span></div>
+            <div><b style="font-family:var(--serif);font-size:18px;color:var(--accent);">70%</b><span style="display:block;font-size:9px;font-family:var(--mono);color:var(--mute);">DSAR ACCEL</span></div>
+            <div><b style="font-family:var(--serif);font-size:18px;color:var(--accent);">15+</b><span style="display:block;font-size:9px;font-family:var(--mono);color:var(--mute);">JDK17 MIGR</span></div>
+            <div><b style="font-family:var(--serif);font-size:18px;color:var(--accent);">2×</b><span style="display:block;font-size:9px;font-family:var(--mono);color:var(--mute);">PAPERS</span></div>
+          </div>
+          <div style="position:absolute;bottom:6px;right:12px;color:#19b97a;font-family:var(--mono);font-size:9.5px;font-weight:600;">
+            ✓ ALL PROOF VISIBLE IMMEDIATELY
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Side-by-Side Specimen Cards -->
+    <div class="compare-grid">
+
+      <!-- ORIGINAL -->
+      <div class="compare-card">
+        <div class="compare-badge-strip">
+          <span class="badge-tag original"><span class="badge-dot"></span> 1. Original Unconstrained Scale</span>
+          <span>Max Size: 370px</span>
+        </div>
+        <div class="specimen-stage stage-original">
+          <div class="mock-nav">
+            <b>DEEVNA REDDY</b>
+            <span>ABOUT &nbsp; WORK &nbsp; EXPERIENCE</span>
+          </div>
+          <div>
+            <div class="mock-intro">hey, I'm Deevna —</div>
+            <div class="mock-hero-name">SOFTWARE.</div>
+          </div>
+          <div class="mock-section-title">01 · about the engineer.</div>
+          <div class="mock-stats">
+            <div><b>50M+</b> Users</div>
+            <div><b>70%</b> DSAR</div>
+            <div><b>2×</b> Papers</div>
+          </div>
+        </div>
+        <div class="analysis-footer">
+          <ul>
+            <li><strong>Headline Dominance:</strong> Giant 370px lettering took up 70% of vertical screen height.</li>
+            <li><strong>Information Starvation:</strong> Pushed case studies and credibility stats out of initial view.</li>
+            <li><strong>Reading Fatigue:</strong> Section headings at 84px forced awkward 3-line breaks on mid-sized screens.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- CALIBRATED -->
+      <div class="compare-card highlight">
+        <div class="compare-badge-strip">
+          <span class="badge-tag calibrated"><span class="badge-dot"></span> 2. New Calibrated Editorial Scale</span>
+          <span>Max Size: 160px</span>
+        </div>
+        <div class="specimen-stage stage-calibrated">
+          <div class="mock-nav">
+            <b>DEEVNA REDDY</b>
+            <span>ABOUT &nbsp; WORK &nbsp; EXPERIENCE &nbsp; WRITING</span>
+          </div>
+          <div>
+            <div class="mock-intro">hey, I'm Deevna —</div>
+            <div class="mock-hero-name">SOFTWARE.</div>
+          </div>
+          <div class="mock-section-title">01 · about the engineer.</div>
+          <div class="mock-stats">
+            <div class="mock-stat-item"><b>50M+</b><span>Alexa Scale</span></div>
+            <div class="mock-stat-item"><b>70%</b><span>DSAR Accel</span></div>
+            <div class="mock-stat-item"><b>15+</b><span>JDK17 Migr</span></div>
+            <div class="mock-stat-item"><b>2×</b><span>Published</span></div>
+          </div>
+        </div>
+        <div class="analysis-footer">
+          <ul>
+            <li><strong>Proportional Harmony:</strong> Hero display text has presence without overwhelming UI hierarchy.</li>
+            <li><strong>Immediate Credibility:</strong> Production metrics and experience highlights are instantly legible.</li>
+            <li><strong>Linear Rhythm:</strong> Section headings (`48–64px`) and project titles (`26–34px`) create a natural reading flow.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Scale Comparison Metric Table -->
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>UI Element</th>
+          <th>Original Value</th>
+          <th>Calibrated Value</th>
+          <th>Engineering &amp; UX Impact</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Hero Name (`.word`)</strong></td>
+          <td><code>clamp(110px, 26vw, 370px)</code></td>
+          <td><span class="winner-pill">CALIBRATED</span><br><code>clamp(110px, 12vw, 160px)</code></td>
+          <td>Limits max footprint from 370px down to 160px; prevents mobile horizontal jank and desktop vertical crowding.</td>
+        </tr>
+        <tr>
+          <td><strong>Hero Intro (`.hey h1`)</strong></td>
+          <td><code>clamp(64px, 13vw, 170px)</code></td>
+          <td><span class="winner-pill">CALIBRATED</span><br><code>clamp(36px, 4.2vw, 54px)</code></td>
+          <td>Locks line-height to <code>1.05</code> with tight kerning; keeps the hand-drawn squiggly doodle proportional.</td>
+        </tr>
+        <tr>
+          <td><strong>Section Titles (`.t`)</strong></td>
+          <td><code>clamp(44px, 7vw, 84px)</code></td>
+          <td><span class="winner-pill">CALIBRATED</span><br><code>clamp(48px, 5.2vw, 64px)</code></td>
+          <td>Retains the authoritative <em>Instrument Serif</em> punch without spilling into 3-line word wraps.</td>
+        </tr>
+        <tr>
+          <td><strong>Project Headings</strong></td>
+          <td><code>clamp(30px, 4.6vw, 58px)</code></td>
+          <td><span class="winner-pill">CALIBRATED</span><br><code>clamp(26px, 2.6vw, 34px)</code></td>
+          <td>Pairs cleanly with supporting case-study technical copy and architecture badges.</td>
+        </tr>
+        <tr>
+          <td><strong>Body Text</strong></td>
+          <td><code>14px</code> (line-height 1.5)</td>
+          <td><span class="winner-pill">CALIBRATED</span><br><code>15px</code> (line-height 1.6)</td>
+          <td>Optimal line length for reading engineering breakdown narratives and technical post-mortems.</td>
+        </tr>
+        <tr>
+          <td><strong>Navigation Links</strong></td>
+          <td><code>15px</code> (gap 34px)</td>
+          <td><span class="winner-pill">CALIBRATED</span><br><code>12px</code> (gap 28px, 500 wt)</td>
+          <td>Subtle, architectural menu bar that stays secondary to the main content.</td>
+        </tr>
+        <tr>
+          <td><strong>Metadata (`.mono`)</strong></td>
+          <td><code>11px</code></td>
+          <td><span class="winner-pill">CALIBRATED</span><br><code>10.5px</code> (<code>0.16em</code> tracking)</td>
+          <td>Sharp, blueprint-like aesthetic for commit hashes, telemetry data, and stack layer tags.</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  <!-- =====================================================================
+       TAB 2: COMPARISON WITH VERCEL SITE (deevna-portfolio.vercel.app)
+       ===================================================================== -->
+  <div class="tab-panel" id="vercelTab">
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Pillar</th>
+          <th>Original Vercel Portfolio (<code>deevna-portfolio.vercel.app</code>)</th>
+          <th>New Editorial Craft Portfolio (<code>localhost:3000</code>)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Visual Identity</strong></td>
+          <td>Standard dark developer theme with generic pastel blur circles (Catppuccin Mocha palette). Looks like a common template.</td>
+          <td><span class="winner-pill">AUTHENTIC CRAFT</span><br>Bespoke warm paper editorial aesthetic (<code>#f6f4ef</code> cream / <code>#121211</code> charcoal) with vermilion ink accent (<code>#f0553a</code>).</td>
+        </tr>
+        <tr>
+          <td><strong>Typography</strong></td>
+          <td>Generic sans-serif (Inter/system fonts) with mixed novelty display fonts (Bungee, Permanent Marker).</td>
+          <td><span class="winner-pill">HIERARCHICAL REFINEMENT</span><br>Curated pairing of <em>Instrument Serif</em> + <em>Plus Jakarta Sans</em> + <em>JetBrains Mono</em> + organic handwritten <em>Caveat</em> notes.</td>
+        </tr>
+        <tr>
+          <td><strong>Experience Section</strong></td>
+          <td>Standard vertical card list with bulleted text.</td>
+          <td><span class="winner-pill">ENGINEER'S GIT GRAPH</span><br>Interactive visual <code>git log --graph</code> with branch topologies, commit nodes, live diff overlays (<code>+</code>/<code>-</code>), and company branch filters.</td>
+        </tr>
+        <tr>
+          <td><strong>Case Studies &amp; Projects</strong></td>
+          <td>Static cards with generic links to GitHub repos.</td>
+          <td><span class="winner-pill">INTERACTIVE BENTO GRID</span><br>3D tilt cards, animated SVG architecture pipelines, live interactive test benches, and a slide-out deep engineering drawer (Problem · Approach · Outcome).</td>
+        </tr>
+        <tr>
+          <td><strong>Toolkit Presentation</strong></td>
+          <td>Flat static card matrix with plain badge chips.</td>
+          <td><span class="winner-pill">3D ISOMETRIC STRATA</span><br>Interactive 5-layer mechanical stack with physical spring delamination, altitude ruler, and real-time telemetry inspector.</td>
+        </tr>
+        <tr>
+          <td><strong>Interactivity &amp; Polish</strong></td>
+          <td>Standard hover effects.</td>
+          <td><span class="winner-pill">TACTILE DELIGHT</span><br>Cursor-elastic particle mesh, magnetic context cursor (<code>view</code>, <code>peek</code>, <code>pet</code>), <code>⌘K</code> command palette, and interactive peeking cat.</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  <!-- =====================================================================
+       TAB 3: TOOLKIT FLAT MATRIX VS 3D STRATA
+       ===================================================================== -->
+  <div class="tab-panel" id="strataTab">
+
+    <div class="compare-grid">
+      <div class="compare-card">
+        <div class="compare-badge-strip">
+          <span class="badge-tag original">Flat Skills Matrix (Original)</span>
+        </div>
+        <div class="specimen-stage" style="min-height:300px;">
+          <div style="font-family:var(--serif);font-size:24px;margin-bottom:12px;">Technical Skills Matrix</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div style="border:1px solid var(--line);padding:12px;border-radius:8px;background:var(--paper);">
+              <b style="font-size:12px;display:block;margin-bottom:6px;">Backend</b>
+              <span style="font-size:11px;color:var(--mute);">Python, Java, Go, FastAPI, PostgreSQL</span>
+            </div>
+            <div style="border:1px solid var(--line);padding:12px;border-radius:8px;background:var(--paper);">
+              <b style="font-size:12px;display:block;margin-bottom:6px;">ML &amp; AI</b>
+              <span style="font-size:11px;color:var(--mute);">PyTorch, LangChain, RAG, Pinecone</span>
+            </div>
+          </div>
+          <div style="margin-top:20px;font-size:12px;color:var(--mute);">
+            • Passive reading experience<br>
+            • Looks like every resume summary<br>
+            • No architectural context
+          </div>
+        </div>
+      </div>
+
+      <div class="compare-card highlight">
+        <div class="compare-badge-strip">
+          <span class="badge-tag calibrated">3D Isometric Architectural Strata (New)</span>
+        </div>
+        <div class="specimen-stage" style="min-height:300px;">
+          <div style="font-family:var(--serif);font-size:24px;margin-bottom:12px;">02 · the tools behind the work.</div>
+          <div style="border:1px solid var(--line);padding:16px;border-radius:10px;background:var(--paper);display:flex;gap:16px;align-items:center;">
+            <div style="width:70px;height:70px;background:var(--accent-soft);border:1px solid var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;color:var(--accent);text-align:center;">
+              5-LAYER<br>STRATA
+            </div>
+            <div style="flex:1;">
+              <div style="font-size:11px;font-family:var(--mono);color:var(--accent);letter-spacing:.08em;">ACTIVE LAYER: BACKEND SERVICES</div>
+              <div style="font-weight:700;font-size:15px;margin:2px 0;">Microservices &amp; Concurrency</div>
+              <div style="font-size:12px;color:var(--mute);">FastAPI · Go · Kafka · Redis · PostgreSQL</div>
+            </div>
+          </div>
+          <div style="margin-top:20px;font-size:12px;color:var(--ink);">
+            • <strong>Interactive 3D elevation</strong>: Slabs spring apart dynamically upon click or keys 1–5<br>
+            • <strong>Zero visual noise</strong>: Pure architectural surfaces with telemetry inspector<br>
+            • <strong>Architectural storytelling</strong>: Demonstrates how code travels from apps to infra
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+function switchTab(tabId, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  
+  const target = document.getElementById(tabId);
+  if (target) target.classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
+function toggleTheme() {
+  const root = document.documentElement;
+  const isDark = root.getAttribute('data-theme') === 'dark';
+  root.setAttribute('data-theme', isDark ? 'light' : 'dark');
+}
+</script>
+
+</body>
+</html>

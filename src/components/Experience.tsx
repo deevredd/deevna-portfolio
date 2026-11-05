@@ -1,64 +1,131 @@
 "use client";
 
-import Section from "./Section";
-import Reveal from "./Reveal";
-import { experience } from "@/lib/content";
-import { useGenZ } from "@/context/GenZContext";
+import React from "react";
 
-const dotColors = ["bg-mauve", "bg-peach", "bg-sky"];
-const borderColors = ["border-mauve/40", "border-peach/40", "border-sky/40"];
-const companyColors = ["text-mauve", "text-peach", "text-sky"];
-
-export default function Experience() {
-  const { t, genz } = useGenZ();
+export const Experience: React.FC = () => {
   return (
-    <Section id="experience" num="02" heading={genz ? "Experience (receipts)" : "Experience"}>
-      <div className="max-w-2xl space-y-12">
-        {experience.map((job, i) => (
-          <Reveal key={i} delay={i * 120}>
-            <div
-              onMouseMove={(e) => {
-                const rect = e.currentTarget.getBoundingClientRect();
-                e.currentTarget.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
-                e.currentTarget.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
-              }}
-              className={`relative pl-7 border-l-2 ${borderColors[i % 3]} group p-4 rounded-r-2xl transition-all duration-300 hover:bg-surface0/30 hover:border-mauve/60`}
-            >
-              {/* Timeline Dot with pulsing ring */}
-              <span className={`absolute -left-[7px] top-5 h-3 w-3 rounded-full ${dotColors[i % 3]} shadow-sm`}>
-                {i === 0 && (
-                  <span className={`absolute -inset-1 rounded-full ${dotColors[i % 3]} opacity-60 animate-ping`} />
-                )}
-              </span>
-
-              <div className="flex flex-wrap items-baseline justify-between gap-x-4">
-                <h3 className="text-xl font-bold text-white tracking-tight">{t(job.role)}</h3>
-                <span className="font-mono text-xs font-bold text-slate-200 whitespace-nowrap">{job.dates}</span>
-              </div>
-
-              <p className="mt-1 text-sm font-medium">
-                <span className={`font-bold text-base ${companyColors[i % 3]}`}>{job.company}</span>{" "}
-                <span className="text-slate-200 font-semibold" style={{ color: "#e2e8f0" }}>
-                  · {job.location} {job.flag}
-                </span>
-              </p>
-
-              <p className="mt-3 text-white text-sm sm:text-base leading-relaxed font-normal" style={{ color: "#ffffff" }}>{t(job.description)}</p>
-
-              <ul className="mt-4 flex flex-wrap gap-2">
-                {job.tags.map((tag) => (
-                  <li
-                    key={tag}
-                    className={`rounded-full border border-surface2 bg-mantle/90 px-3 py-1 font-mono text-xs font-medium ${companyColors[i % 3]} hover:border-white/40 hover:scale-105 transition-all duration-200 shadow-xs`}
-                  >
-                    {tag}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Reveal>
-        ))}
+    <section id="experience" className="max-w-6xl mx-auto px-6 py-20 border-t border-neutral-300">
+      <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+        <div>
+          <span className="text-xs font-mono font-bold text-neutral-400 uppercase tracking-widest block">
+            02 / EXPERIENCE
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold font-serif text-neutral-900 mt-1">
+            Shipping systems at scale.
+          </h2>
+        </div>
+        <p className="text-sm text-neutral-600 max-w-md font-sans">
+          Proven track record closing out compliance risk for 50M+ users, on-device native C++ inference, and zero-downtime distributed rollouts.
+        </p>
       </div>
-    </Section>
+
+      <div className="space-y-8">
+        {/* Amazon Role */}
+        <div className="bg-white rounded-3xl border border-neutral-300 p-8 sm:p-10 shadow-sm space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-neutral-200">
+            <div>
+              <div className="flex items-center gap-2">
+                <h3 className="text-xl font-bold font-sans text-neutral-900">
+                  Software Development Engineer
+                </h3>
+                <span className="px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 font-mono text-[10px] font-bold">
+                  AMAZON
+                </span>
+              </div>
+              <span className="text-xs font-mono text-neutral-500 mt-0.5 block">
+                Alexa Calendar &amp; Kindle Scribe • Chennai, IN 🇮🇳
+              </span>
+            </div>
+            <span className="text-xs font-mono font-bold text-neutral-400">
+              Jan 2025 — Mar 2026
+            </span>
+          </div>
+
+          <div className="space-y-4 text-xs sm:text-sm text-neutral-700 font-sans leading-relaxed">
+            <p>
+              • <strong>Kindle Scribe On-Device Inference:</strong> Built Python ETL pipelines converting raw stroke data into per-word feature datasets for handwriting recognition training. Ported the stroke-straightening model to native C++ for dependency-free, real-time on-device inference, boosting detection robustness by 25%.
+            </p>
+            <p>
+              • <strong>Alexa Calendar DSAR Compliance:</strong> Owned end-to-end Data Subject Access Request compliance onboarding for a service supporting 50M+ users. Automated manual data retrieval and deletion pipelines, slashing operational processing time by 70%.
+            </p>
+            <p>
+              • <strong>Audit Cycles &amp; Distributed Scale:</strong> Closed every outstanding policy engine risk item as sole contributor across two corporate audit cycles. Led 15+ JDK 8/11 → 17 service migrations with zero downtime, boosting runtime performance by 20%.
+            </p>
+          </div>
+
+          <div className="pt-4 border-t border-neutral-200 flex flex-wrap gap-2 text-xs font-mono">
+            {["Java", "AWS (Lambda, S3, DynamoDB, EC2)", "JDK 17", "CI/CD", "Policy Engine", "Python", "C++"].map((tag) => (
+              <span key={tag} className="px-2.5 py-1 rounded-md bg-neutral-100 text-neutral-800 border border-neutral-200">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Agilisium Role */}
+        <div className="bg-white rounded-3xl border border-neutral-300 p-8 shadow-sm space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-neutral-200">
+            <div>
+              <div className="flex items-center gap-2">
+                <h3 className="text-lg font-bold font-sans text-neutral-900">
+                  AI &amp; ML Intern
+                </h3>
+                <span className="px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-900 font-mono text-[10px] font-bold">
+                  AGILISIUM CONSULTING
+                </span>
+              </div>
+              <span className="text-xs font-mono text-neutral-500">Chennai, IN 🇮🇳</span>
+            </div>
+            <span className="text-xs font-mono font-bold text-neutral-400">
+              Aug 2023 — Oct 2023
+            </span>
+          </div>
+
+          <p className="text-xs sm:text-sm text-neutral-700 font-sans leading-relaxed">
+            Architected an enterprise HR intelligence chatbot utilizing NLP and Retrieval-Augmented Generation (RAG) over structured internal repositories, cutting manual ticket query volume by 40%.
+          </p>
+
+          <div className="flex flex-wrap gap-2 text-xs font-mono pt-2">
+            {["Python", "NLP", "Multi-Agent RAG", "Vector Search"].map((tag) => (
+              <span key={tag} className="px-2.5 py-1 rounded-md bg-neutral-100 text-neutral-800 border border-neutral-200">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* REUDE Technologies */}
+        <div className="bg-white rounded-3xl border border-neutral-300 p-8 shadow-sm space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-neutral-200">
+            <div>
+              <div className="flex items-center gap-2">
+                <h3 className="text-lg font-bold font-sans text-neutral-900">
+                  Data &amp; Image Analyst
+                </h3>
+                <span className="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-900 font-mono text-[10px] font-bold">
+                  REUDE TECHNOLOGIES
+                </span>
+              </div>
+              <span className="text-xs font-mono text-neutral-500">Chennai, IN 🇮🇳</span>
+            </div>
+            <span className="text-xs font-mono font-bold text-neutral-400">
+              Sep 2023 — Apr 2024
+            </span>
+          </div>
+
+          <p className="text-xs sm:text-sm text-neutral-700 font-sans leading-relaxed">
+            Processed aerial drone sensor acquisitions and 3D point cloud reconstructions, increasing spatial coordinate accuracy by 20% over raw uncalibrated sensor output.
+          </p>
+
+          <div className="flex flex-wrap gap-2 text-xs font-mono pt-2">
+            {["Drone LiDAR", "Point Cloud Processing", "Spatial Calibration"].map((tag) => (
+              <span key={tag} className="px-2.5 py-1 rounded-md bg-neutral-100 text-neutral-800 border border-neutral-200">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
   );
-}
+};

@@ -1,129 +1,193 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { hero, socials } from "@/lib/content";
-import { useGenZ } from "@/context/GenZContext";
-import { socialIcon } from "./Header";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
 
-const wordColors = ["text-sky", "text-peach", "text-green", "text-pink"];
-
-export default function Hero() {
-  const { t, genz } = useGenZ();
-  const words = genz ? hero.words.genz : hero.words.normal;
-  const [i, setI] = useState(0);
-  useEffect(() => {
-    const id = setInterval(() => setI((n) => (n + 1) % words.length), 2200);
-    return () => clearInterval(id);
-  }, [words.length]);
+export const Hero: React.FC = () => {
+  const [catPurring, setCatPurring] = useState(false);
 
   return (
-    <section
-      id="top"
-      className="min-h-[calc(100vh-73px)] flex flex-col items-start justify-center text-left px-6 sm:px-10 py-16 relative overflow-hidden"
-    >
-      {/* Dynamic Animated Ambient Mesh Orbs */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-[-10%] left-[10%] h-80 w-80 rounded-full bg-mauve/30 blur-[110px] animate-[pro-float-slow_12s_ease-in-out_infinite]" />
-        <div className="absolute top-[20%] right-[8%] h-72 w-72 rounded-full bg-pink/25 blur-[120px] animate-[pro-pulse-glow_8s_ease-in-out_infinite]" />
-        <div className="absolute bottom-[-5%] left-[30%] h-96 w-96 rounded-full bg-sky/20 blur-[130px] animate-[pro-float-slow_16s_ease-in-out_infinite_reverse]" />
-        <div className="absolute bottom-[15%] right-[20%] h-64 w-64 rounded-full bg-green/15 blur-[110px]" />
-      </div>
+    <section className="relative max-w-7xl mx-auto px-6 sm:px-12 pt-6 pb-20 overflow-hidden">
+      {/* Background Ambient Watercolor Glow */}
+      <div className="misty-silhouette absolute inset-0 -top-24 z-0 pointer-events-none" />
 
-      <div className="mx-auto max-w-6xl w-full">
-        <div className="max-w-2xl w-full mx-auto flex flex-col items-start">
-          {/* Availability Status Pill */}
-          <div className="inline-flex items-center gap-2 rounded-full border border-surface2 bg-mantle/80 px-3.5 py-1.5 backdrop-blur-md shadow-md mb-5">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75 animate-ping" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
-            </span>
-            <span className="font-mono text-xs font-semibold text-slate-100">
-              {t(hero.eyebrow)} · Open for Full Time Roles
-            </span>
-          </div>
-
-          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-bold tracking-tight leading-[0.95] bg-gradient-to-br from-mauve via-pink to-lavender bg-clip-text text-transparent drop-shadow-sm">
-            Deevna
-            <br />
-            Reddy
-          </h1>
-
-          <p className="mt-6 max-w-xl text-lg sm:text-xl text-white font-normal leading-relaxed" style={{ color: "#ffffff" }}>
-            Building systems that hold up under real world constraints.
-            <br />
-            Specializing in{" "}
-            <span
-              key={i}
-              className={`font-semibold inline-block transition-all duration-300 ${wordColors[i % wordColors.length]}`}
-            >
-              {words[i]}
-            </span>
-            .
-          </p>
-
-          <div className="mt-8 flex items-center gap-6">
-            <a
-              href="#contact"
-              className="rounded-xl bg-gradient-to-r from-mauve via-pink to-peach px-7 py-3.5 text-sm font-bold text-crust shadow-[0_0_25px_rgba(203,166,247,0.35)] hover:shadow-[0_0_35px_rgba(244,114,182,0.5)] hover:scale-105 active:scale-95 transition-all duration-200"
-            >
-              {t(hero.cta)}
-            </a>
-            <ul className="flex items-center gap-4">
-              {socials.map((s, idx) => {
-                const hoverColor = ["hover:text-sky hover:border-sky/40", "hover:text-mauve hover:border-mauve/40", "hover:text-peach hover:border-peach/40"][idx % 3];
-                return (
-                  <li key={s.label}>
-                    <a
-                      href={s.href}
-                      target={s.href.startsWith("http") ? "_blank" : undefined}
-                      rel="noreferrer"
-                      aria-label={s.label}
-                      className={`flex h-10 w-10 items-center justify-center rounded-full border border-surface2 bg-mantle/80 text-slate-100 ${hoverColor} hover:text-white hover:scale-110 transition-all duration-200 shadow-sm`}
-                    >
-                      {socialIcon(s.label)}
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-
-          {/* Executive Metrics Highlight Grid */}
-          <div className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-3.5 w-full font-mono text-xs">
-            <div className="rounded-2xl border border-surface1 bg-mantle/80 p-4 backdrop-blur-md transition-all hover:border-mauve/40 hover:-translate-y-1 shadow-md">
-              <span className="text-slate-400 text-[10px] uppercase font-bold block">Alexa Calendar</span>
-              <span className="text-white font-extrabold text-xl mt-1 block">50M+</span>
-              <span className="text-slate-300 text-[11px]">Users Supported</span>
-            </div>
-            <div className="rounded-2xl border border-surface1 bg-mantle/80 p-4 backdrop-blur-md transition-all hover:border-green/40 hover:-translate-y-1 shadow-md">
-              <span className="text-slate-400 text-[10px] uppercase font-bold block">DSAR Compliance</span>
-              <span className="text-green font-extrabold text-xl mt-1 block">70%</span>
-              <span className="text-slate-300 text-[11px]">Manual Ops Reduced</span>
-            </div>
-            <div className="rounded-2xl border border-surface1 bg-mantle/80 p-4 backdrop-blur-md transition-all hover:border-sky/40 hover:-translate-y-1 shadow-md">
-              <span className="text-slate-400 text-[10px] uppercase font-bold block">JDK 17 Upgrades</span>
-              <span className="text-sky font-extrabold text-xl mt-1 block">15+</span>
-              <span className="text-slate-300 text-[11px]">Zero Downtime Rollouts</span>
-            </div>
-            <div className="rounded-2xl border border-surface1 bg-mantle/80 p-4 backdrop-blur-md transition-all hover:border-pink/40 hover:-translate-y-1 shadow-md">
-              <span className="text-slate-400 text-[10px] uppercase font-bold block">Research Citations</span>
-              <span className="text-pink font-extrabold text-xl mt-1 block">2x Papers</span>
-              <span className="text-slate-300 text-[11px]">Springer &amp; IEEE Published</span>
-            </div>
-          </div>
+      {/* Top Metadata Bar */}
+      <div className="relative z-20 mb-8 flex items-center justify-between flex-wrap gap-3">
+        <div className="text-[11px] font-bold tracking-[0.2em] text-neutral-400 uppercase font-mono">
+          SOFTWARE DEVELOPMENT ENGINEER &bull; BACKEND &amp; APPLIED ML
+        </div>
+        <div className="text-[11px] font-mono text-neutral-400 flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="text-neutral-600 font-medium">CHENNAI, IN &bull; OPEN TO ROLES</span>
         </div>
       </div>
 
-      <a
-        href="#about"
-        aria-label="Scroll to About"
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-slate-200 hover:text-mauve transition-colors animate-bounce"
-      >
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-6 w-6">
-          <path d="M12 4v16m0 0-6-6m6 6 6-6" />
-        </svg>
-      </a>
+      {/* ========================================================================= */}
+      {/* FULL-WIDTH EDITORIAL HERO (OPTION 3 + DESIGN A)                            */}
+      {/* ========================================================================= */}
+      <div className="relative z-10 space-y-10 pt-2">
+        
+        {/* Top Full-Width Typography */}
+        <div className="space-y-4">
+          
+          {/* "hey, I'm" in Huge Serif Italic */}
+          <div className="font-serif italic text-6xl sm:text-8xl lg:text-9xl text-neutral-900 flex items-center gap-5">
+            <span>hey, I'm</span>
+            <svg
+              className="w-36 sm:w-52 h-8 sm:h-12 text-[#ff4d2e] fill-none stroke-current stroke-[3]"
+              viewBox="0 0 120 24"
+            >
+              <path d="M 4,14 Q 32,2 62,14 T 116,14" strokeLinecap="round" />
+            </svg>
+          </div>
+
+          {/* Giant Full-Width Name */}
+          <div className="relative inline-block select-none">
+            <h1 className="text-8xl sm:text-[12rem] lg:text-[15rem] font-extrabold tracking-[-0.05em] text-[#19191d] leading-[0.82]">
+              deevna<span className="text-[#ff4d2e]">.</span>
+            </h1>
+
+            {/* Perched Interactive Ginger Cat */}
+            <motion.div
+              onMouseEnter={() => setCatPurring(true)}
+              onMouseLeave={() => setCatPurring(false)}
+              onClick={() => setCatPurring(!catPurring)}
+              animate={catPurring ? { y: [-3, 3, -3], rotate: [0, 2, -2, 0] } : { y: 0 }}
+              transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
+              className="absolute -top-16 sm:-top-24 lg:-top-32 right-12 sm:right-32 cursor-pointer select-none z-20 group"
+              title="pet the cat 🐾"
+            >
+              <svg className="w-24 h-24 sm:w-32 sm:h-32 transition-transform duration-200 group-hover:scale-105" viewBox="0 0 44 44" fill="none">
+                <ellipse cx="22" cy="26" rx="15" ry="12" fill="#fbb040" />
+                <path d="M 12,24 Q 15,18 20,24" fill="#f15a24" />
+                <path d="M 28,22 Q 33,18 35,26" fill="#f15a24" />
+                <polygon points="10,16 16,6 19,17" fill="#f15a24" />
+                <polygon points="34,16 28,6 25,17" fill="#f15a24" />
+                <polygon points="12,15 16,9 18,16" fill="#ffd199" />
+                <polygon points="32,15 28,9 26,16" fill="#ffd199" />
+                {catPurring ? (
+                  <>
+                    <path d="M 15,24 Q 18,21 21,24" stroke="#222" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+                    <path d="M 24,24 Q 27,21 30,24" stroke="#222" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+                  </>
+                ) : (
+                  <>
+                    <circle cx="17" cy="24" r="1.5" fill="#222" />
+                    <circle cx="27" cy="24" r="1.5" fill="#222" />
+                  </>
+                )}
+                <polygon points="21,26 23,26 22,27.5" fill="#e0523d" />
+                <path d="M 20,28 Q 22,30 24,28" stroke="#222" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+                <line x1="9" y1="25" x2="2" y2="23" stroke="#222" strokeWidth="1" strokeLinecap="round" />
+                <line x1="9" y1="27" x2="3" y2="28" stroke="#222" strokeWidth="1" strokeLinecap="round" />
+                <line x1="35" y1="25" x2="42" y2="23" stroke="#222" strokeWidth="1" strokeLinecap="round" />
+                <line x1="35" y1="27" x2="41" y2="28" stroke="#222" strokeWidth="1" strokeLinecap="round" />
+              </svg>
+              {catPurring && (
+                <div className="absolute -top-3 -right-2 font-handwriting text-xs text-[#ff4d2e] rotate-12 whitespace-nowrap">
+                  purr... 🐾
+                </div>
+              )}
+            </motion.div>
+          </div>
+
+        </div>
+
+        {/* ================= STATEMENT ROW: DESIGN A (PURE SAMAY EDITORIAL) ================= */}
+        <div className="pt-8 border-t border-neutral-300">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-baseline pt-2 pb-2">
+            
+            {/* Left Column: Hand-drawn loop statement */}
+            <div className="lg:col-span-7 space-y-2">
+              <div className="text-2xl sm:text-4xl text-neutral-900 leading-snug font-normal tracking-tight">
+                I build backend systems.<br />
+                I also like making them{" "}
+                <span className="relative font-bold text-neutral-900 px-2.5 py-0.5 inline-block">
+                  work.
+                  <svg
+                    className="absolute -inset-1.5 w-[calc(100%+12px)] h-[calc(100%+12px)] text-[#ff4d2e] stroke-current fill-none stroke-2 pointer-events-none"
+                    viewBox="0 0 100 50"
+                    preserveAspectRatio="none"
+                  >
+                    <path
+                      d="M 6,25 C 6,6 94,4 94,24 C 94,44 6,46 3,25 C 2,12 40,3 96,14"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </span>
+                <span className="text-[#ff4d2e] text-2xl ml-1.5 select-none align-middle">✣</span>
+              </div>
+            </div>
+
+            {/* Right Column: Editorial description with dotted links & status */}
+            <div className="lg:col-span-5 space-y-3.5 text-sm sm:text-base text-neutral-600 leading-relaxed font-sans lg:pl-4">
+              <p>
+                <span className="dotted-link font-medium text-neutral-900">Compliance infrastructure</span> for 50M+ Alexa users,{" "}
+                <span className="dotted-link font-medium text-neutral-900">native C++ edge inference</span>, and{" "}
+                <span className="dotted-link font-medium text-neutral-900">multi-agent RAG pipelines</span>.
+              </p>
+              <div className="pt-1 flex items-center gap-3 text-xs font-mono text-neutral-500 flex-wrap">
+                <span className="flex items-center gap-2 text-neutral-900 font-bold">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <span>Available for Full-Time Roles</span>
+                </span>
+                <span className="text-neutral-300">•</span>
+                <span>Chennai, IN (UTC +5:30)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      {/* ================= EXPERIENCES TICKER (BOTTOM ANCHOR) ================= */}
+      <div className="pt-8 border-t border-neutral-300 flex flex-wrap items-center justify-between gap-6 text-xs font-mono text-neutral-500 mt-10">
+        <div className="flex items-center gap-6 sm:gap-8 flex-wrap">
+          <span className="uppercase tracking-[0.2em] text-[10px] font-bold text-neutral-400">
+            EXPERIENCES
+          </span>
+
+          <div className="flex items-center gap-2.5">
+            <span className="w-5 h-5 rounded-full bg-[#ff9900] text-black font-extrabold flex items-center justify-center text-[10px] shadow-sm">
+              a
+            </span>
+            <span className="font-bold text-sm text-neutral-900 font-sans">Amazon</span>
+            <span className="px-2.5 py-0.5 rounded-full bg-[#ff4d2e] text-white text-[9px] font-bold tracking-wider font-mono uppercase shadow-sm">
+              • SDE @ ALEXA &amp; KINDLE
+            </span>
+          </div>
+
+          <span className="text-neutral-300">/</span>
+
+          <div className="flex items-center gap-2 text-neutral-800 font-bold font-sans">
+            <span className="text-blue-600">⚡</span>
+            <span>Agilisium</span>
+            <span className="text-neutral-400 font-normal text-xs font-mono">AI &amp; RAG</span>
+          </div>
+
+          <span className="text-neutral-300">/</span>
+
+          <div className="flex items-center gap-2 text-neutral-800 font-bold font-sans">
+            <span className="text-emerald-600">◈</span>
+            <span>REUDE Tech</span>
+            <span className="text-neutral-400 font-normal text-xs font-mono">LiDAR / Drone</span>
+          </div>
+
+          <span className="text-neutral-300">/</span>
+
+          <div className="flex items-center gap-2 text-neutral-800 font-bold font-sans">
+            <span className="text-indigo-600">📄</span>
+            <span>IEEE ICCDS '25</span>
+            <span className="text-neutral-400 font-normal text-xs font-mono">1st Author</span>
+          </div>
+        </div>
+
+        <div className="text-[11px] text-neutral-400 font-mono hidden xl:block">
+          📍 CHENNAI, INDIA • OPEN TO FULL-TIME ROLES
+        </div>
+      </div>
+
     </section>
   );
-}
-
+};
